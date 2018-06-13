@@ -2,16 +2,16 @@
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 
-import {enableProdMode} from '@angular/core';
+import { enableProdMode } from '@angular/core';
 
-const http = require('http');
-const socketio = require('socket.io');
-
-const socketEvents = require('../server/web/socket');
-// const routes = require('./web/routes');
 // const appConfig = require('./config/app-config');
-import {api} from '../server/api';
+import * as http from 'http';
+import * as socketio from 'socket.io';
 
+import { Routes } from '../server/web/routes';
+import { Socket } from '../server/web/socket';
+import { AppConfig } from '../server/config/app-config';
+import { api } from '../server/api';
 
 class Server {
   http: any;
@@ -21,25 +21,25 @@ class Server {
     // Faster server renders w/ Prod mode (dev mode never needed)
     enableProdMode();
 
-    this.http = http.Server(api);
+    this.http = new http.Server(api);
     this.socket = socketio(this.http);
   }
 
-  /* appConfig() {
-     new appConfig(this.app).includeConfig();
-   }*/
+   appConfig() {
+     new AppConfig(api).includeConfig();
+   }
 
   /* Including app Routes starts*/
   includeRoutes() {
-    // new routes(this.app).routesConfig();
-    new socketEvents(this.socket).socketConfig();
+    new Routes(api).routesConfig();
+    new Socket(this.socket).socketConfig();
   }
 
   /* Including app Routes ends*/
 
   appExecute() {
-      // this.appConfig();
-      this.includeRoutes();
+    this.appConfig();
+    this.includeRoutes();
 
     const port = process.env.PORT || 4000;
     const host = process.env.HOST || `localhost`;

@@ -7,7 +7,7 @@
 'use strict';
 
 
-class Socket {
+export class Socket {
   io: any;
 
   constructor(socket) {
@@ -25,23 +25,22 @@ class Socket {
 
   socketConfig() {
     console.log('=======');
-   /* this.io.use(async (socket, next) => {
-      console.log(socket.request);
-      try {
-        console.log('try block');
-        // await queryHandler.addSocketId({
-        //   userId: socket.request._query['userId'],
-        //   socketId: socket.id
-        // });
-        // next();
-      } catch (error) {
-        // Error
-        console.error(error);
-      }
-    });*/
+    /* this.io.use(async (socket, next) => {
+       console.log(socket.request);
+       try {
+         console.log('try block');
+         // await queryHandler.addSocketId({
+         //   userId: socket.request._query['userId'],
+         //   socketId: socket.id
+         // });
+         // next();
+       } catch (error) {
+         // Error
+         console.error(error);
+       }
+     });*/
 
     this.socketEvents();
   }
 }
 
-module.exports = Socket;
