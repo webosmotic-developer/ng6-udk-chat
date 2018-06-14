@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="omb_signUp">
+    <h1 class="omb_authTitle mt-3">Sign Up</h1>
+    <div class="omb_authTitle mb-3">
+      <small>Already have an account? <a routerLink="/signIn">Login</a></small>
+    </div>
+    <div class="row omb_row-sm-offset-3 omb_socialButtons">
+      <div class="col-xs-4 col-sm-2">
+        <a href="#" class="btn btn-lg btn-block omb_btn-facebook">
+          <i class="fa fa-facebook visible-xs"></i>
+          <span class="hidden-xs"> Facebook</span>
+        </a>
+      </div>
+      <div class="col-xs-4 col-sm-2">
+        <a href="#" class="btn btn-lg btn-block omb_btn-twitter">
+          <i class="fa fa-twitter visible-xs"></i>
+          <span class="hidden-xs"> Twitter</span>
+        </a>
+      </div>
+      <div class="col-xs-4 col-sm-2">
+        <a href="#" class="btn btn-lg btn-block omb_btn-google">
+          <i class="fa fa-google-plus visible-xs"></i>
+          <span class="hidden-xs"> Google+</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="row omb_row-sm-offset-3 omb_signUpOr">
+      <div class="col-xs-12 col-sm-6">
+        <hr class="omb_hrOr">
+        <span class="omb_spanOr">or</span>
+      </div>
+    </div>
+
+    <div class="row omb_row-sm-offset-3">
+      <div class="col-xs-12 col-sm-6">
+        <form #form="ngForm" class="omb_signUpForm" (ngSubmit)="fnRegisterUser(form)" novalidate>
+          <div class="mb-3">
+            <input type="text" class="form-control" name="username" placeholder="Username"
+                   [(ngModel)]="newUser.name" #userName="ngModel" required>
+            <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="text-danger">
+              <div *ngIf="userName?.errors.required">
+                Username is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <input type="email" class="form-control" name="email" placeholder="Email Address"
+                   [(ngModel)]="newUser.email" #email="ngModel"
+                   ngModel required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+              <div *ngIf="email?.errors.required">
+                Email is required.
+              </div>
+              <div *ngIf="email?.errors.pattern">
+                Invalid email.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <input type="password" class="form-control" name="password" placeholder="Password"
+                   [(ngModel)]="newUser.password" #password="ngModel" required
+                   (ngModelChange)="cfPass && fnCheckPassword(newUser.password, cfPass)">
+            <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+              <div *ngIf="password?.errors.required">
+                Password is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password"
+                   [(ngModel)]="cfPass" #cfPassword="ngModel" required
+                   (ngModelChange)="fnCheckPassword(newUser.password, cfPass)">
+            <div *ngIf="cfPassword.invalid && (cfPassword.dirty || cfPassword.touched)" class="text-danger">
+              <div *ngIf="cfPassword?.errors.required">
+                Confirm password is required.
+              </div>
+            </div>
+            <div *ngIf="noMatch" class="text-danger">
+              Password not match.
+            </div>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="form.invalid">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
