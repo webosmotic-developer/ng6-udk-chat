@@ -65,17 +65,17 @@ export class RouteHandler {
         message: CONSTANTS.EMAIL_AVAILABLE_FAILED
       });
     } else {
-      if (data.username === '') {
+      if (!data.username) {
         response.status(CONSTANTS.SERVER_ERROR_HTTP_CODE).json({
           error: true,
           message: CONSTANTS.USERNAME_NOT_FOUND
         });
-      } else if (data.password === '') {
+      } else if (!data.password) {
         response.status(CONSTANTS.SERVER_ERROR_HTTP_CODE).json({
           error: true,
           message: CONSTANTS.PASSWORD_NOT_FOUND
         });
-      } else if (data.email === '') {
+      } else if (!data.email) {
         response.status(CONSTANTS.SERVER_ERROR_HTTP_CODE).json({
           error: true,
           message: CONSTANTS.EMAIL_NOT_FOUND
@@ -114,11 +114,60 @@ export class RouteHandler {
         }
       }
     }
-
-
   }
 
   async loginRouteHandler(request, response) {
-    console.log('request', request);
+    const passwordHash = new PasswordHash();
+    const jwt = new JWToken();
+    const queryHandler = new QueryHandler();
+    const data = {
+      email: (request.body.email).toLowerCase(),
+      password: request.body.password
+    };
+    if (data.email === '' || data.email === null) {
+      response.status(CONSTANTS.SERVER_ERROR_HTTP_CODE).json({
+        error: true,
+        message: CONSTANTS.USERNAME_NOT_FOUND
+      });
+    } else if (data.password === '' || data.password === null) {
+      response.status(CONSTANTS.SERVER_ERROR_HTTP_CODE).json({
+        error: true,
+        message: CONSTANTS.PASSWORD_NOT_FOUND
+      });
+    } else {
+      try {
+        const result: any = await queryHandler.getUserByEmail(data.email);
+        if (result === null || result === undefined) {
+          response.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
+            error: true,
+            message: CONSTANTS.USER_LOGIN_FAILED
+          });
+        } else {
+          if (passwordHash.compareHash(data.password, result.password)) {
+            await queryHandler.makeUserOnline(result._id);
+            const dataObj = {
+              id: result._id,
+              username: result.username,
+              email: result.email
+            };
+            response.status(CONSTANTS.SERVER_OK_HTTP_CODE).json({
+              error: false,
+              token: jwt.encodeToken(dataObj),
+              message: CONSTANTS.USER_LOGIN_OK
+            });
+          } else {
+            response.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
+              error: true,
+              message: CONSTANTS.USER_LOGIN_PASSWORD_FAILED
+            });
+          }
+        }
+      } catch (error) {
+        response.status(CONSTANTS.SERVER_NOT_FOUND_HTTP_CODE).json({
+          error: true,
+          message: CONSTANTS.USER_LOGIN_FAILED
+        });
+      }
+    }
   }
 }

@@ -5,7 +5,7 @@
 
 
 'use strict';
-
+import { QueryHandler } from '../handlers/query-handler';
 
 export class Socket {
   io: any;
@@ -24,21 +24,21 @@ export class Socket {
   }
 
   socketConfig() {
-    console.log('=======');
-    /* this.io.use(async (socket, next) => {
-       console.log(socket.request);
-       try {
-         console.log('try block');
-         // await queryHandler.addSocketId({
-         //   userId: socket.request._query['userId'],
-         //   socketId: socket.id
-         // });
-         // next();
-       } catch (error) {
-         // Error
-         console.error(error);
-       }
-     });*/
+    const queryHandler = new QueryHandler();
+    this.io.use(async (socket, next) => {
+      // console.log('------', socket.request);
+      try {
+        console.log('try block');
+        await queryHandler.addSocketId({
+          userId: socket.request._query['userId'],
+          socketId: socket.id
+        });
+        next();
+      } catch (error) {
+        // Error
+        console.error(error);
+      }
+    });
 
     this.socketEvents();
   }

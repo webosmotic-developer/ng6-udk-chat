@@ -49,6 +49,25 @@ export class QueryHandler {
     });
   }
 
+  getUserByEmail(email) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const [DB, ObjectID] = await this.Mongodb.onConnect();
+        DB.collection('users').find({
+          email: email
+        }).toArray((error, result) => {
+          DB.close();
+          if (error) {
+            reject(error);
+          }
+          resolve(result[0]);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   makeUserOnline(userId) {
     return new Promise(async (resolve, reject) => {
       try {
@@ -149,6 +168,7 @@ export class QueryHandler {
         }
       }
     };
+    console.log('data', data)
     return new Promise(async (resolve, reject) => {
       try {
         const [DB, ObjectID] = await this.Mongodb.onConnect();

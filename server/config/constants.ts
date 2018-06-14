@@ -33,6 +33,7 @@ module.exports.USER_REGISTRATION_OK = `User registration successful.`;
 module.exports.USER_REGISTRATION_FAILED = `User registration unsuccessful.`;
 module.exports.USER_LOGIN_OK = `User logged in.`;
 module.exports.USER_LOGIN_FAILED = `User not found.`;
+module.exports.USER_LOGIN_PASSWORD_FAILED = `Wrong password.`;
 module.exports.USER_NOT_LOGGED_IN = `User is not logged in.`;
 module.exports.USER_LOGGED_OUT = `User is not logged in.`;
 /* Route related constants ends*/
