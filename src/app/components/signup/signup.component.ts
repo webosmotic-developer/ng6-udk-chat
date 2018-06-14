@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { st } from '@angular/core/src/render3';
+import { Constant } from '../../common/constant';
+import { AuthService } from '../../common/services/auth/auth.service';
+
 
 @Component({
   selector: 'app-signup',
@@ -7,11 +9,14 @@ import { st } from '@angular/core/src/render3';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  public emailRegEx: any = Constant.EMAIL_REG_EX;
+  public passwordRegEx: any = Constant.PASSWORD_REG_EX;
+
   public noMatch: boolean;
   public newUser: any = {};
   public cfPass: string;
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit() {
@@ -20,7 +25,6 @@ export class SignupComponent implements OnInit {
   }
 
   fnCheckPassword(password, cfPassword) {
-    console.log(password, cfPassword);
     if (!cfPassword) {
       this.noMatch = false;
     } else {
@@ -32,14 +36,13 @@ export class SignupComponent implements OnInit {
     }
   }
 
-  fnRegisterUser(form) {
-    /* if (!this.isInvalid) {
-       console.log(form.value);
+  fnRegisterUser(newUser) {
+    this.authService.signUp(newUser)
+      .then((res) => {
+        console.log(res);
+      }).catch((error: any) => {
 
-       // form.value = {username: '', email: '', password: '', cpassword: ''};
-     } else {
-       console.log('Invalidation in Form.');
-     }*/
+    });
   }
 
 }

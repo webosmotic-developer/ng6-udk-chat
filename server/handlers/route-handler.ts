@@ -51,7 +51,7 @@ export class RouteHandler {
     const jwt = new JWToken();
     const queryHandler = new QueryHandler();
     const data: any = {
-      username: (request.body.username).toLowerCase(),
+      username: (request.body.username ? request.body.username : '').toLowerCase(),
       email: (request.body.email),
       password: request.body.password
     };
