@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Constant } from '../../constant';
 import * as io from 'socket.io-client';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +21,31 @@ export class SocketService {
     return this.socket;
   }
 
-  getChatList(userId) {
+  /*
+   * Method to emit the logout event.
+   */
+  logout(userId: object): Observable<any> {
+    this.socket.emit('logout', userId);
+    return new Observable(observer => {
+      this.socket.on('logout-response', (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+  /*
+   * Method to receive chat-list-response event.
+   */
+  getChatList(userId: string = null): Observable<any> {
     if (userId !== null) {
       this.socket.emit('chat-list', {userId: userId});
     }
-    return new Promise((resolve, reject) => {
+    return new Observable(observer => {
       this.socket.on('chat-list-response', (data: any) => {
-        resolve(data.chatList);
+        observer.next(data);
       });
       return () => {
         this.socket.disconnect();

@@ -1,13 +1,7 @@
 <div class="container h-nav border">
   <div class="row h-100">
     <div class="col-4">
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-action c-pointer"
-            *ngFor="let user of userArr">
-          <i class="fa fa-circle mr-2"
-             [ngClass]="(user.online)?'text-success':'text-danger'"></i>{{user.username}}
-        </li>
-      </ul>
+      <app-chat-list></app-chat-list>
     </div>
     <div class="col-8">
 

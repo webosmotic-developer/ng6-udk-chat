@@ -3,6 +3,7 @@ import { Constant } from '../../constant';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { isPlatformBrowser } from '@angular/common';
+import { SocketService } from '../../services/socket/socket.service';
 
 @Component({
   selector: 'app-navar',
@@ -14,6 +15,7 @@ export class NavbarComponent implements OnInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object,
               private authService: AuthService,
+              private socketService: SocketService,
               public _router: Router) {
     this.authUser = authService.getAuthUser();
   }
@@ -24,7 +26,10 @@ export class NavbarComponent implements OnInit {
   fnLogout() {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.removeItem(Constant.TOKEN_NAME);
-      this._router.navigate(['signin']);
+      this.socketService.logout({ userId: this.authUser.id })
+        .subscribe((response: any) => {
+          this._router.navigate(['signin']);
+        });
     }
   }
 

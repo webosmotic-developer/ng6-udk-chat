@@ -15,6 +15,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainComponent } from './components/main/main.component';
 import { SocketService } from './common/services/socket/socket.service';
 import { NavbarComponent } from './common/components/navbar/navbar.component';
+import { ChatListComponent } from './components/chat-list/chat-list.component';
+import { OrderByPipe } from './common/pipes/order-by.pipe';
 
 export const APP_ID = 'my-app';
 
@@ -26,7 +28,9 @@ export const APP_ID = 'my-app';
     LoginComponent,
     DashboardComponent,
     MainComponent,
-    NavbarComponent
+    NavbarComponent,
+    ChatListComponent,
+    OrderByPipe
   ],
   imports: [
     BrowserModule.withServerTransition({appId: APP_ID}),

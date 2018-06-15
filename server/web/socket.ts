@@ -6,6 +6,7 @@
 
 'use strict';
 import { QueryHandler } from '../handlers/query-handler';
+
 const CONSTANTS = require('./../config/constants');
 
 export class Socket {
@@ -53,6 +54,45 @@ export class Socket {
             });
           }
         }
+      });
+
+      /**
+       * Logout the user
+       */
+      socket.on('logout', async (data) => {
+        const userId = data.userId;
+        try {
+          await this.queryHandler.logout(userId);
+          this.io.to(socket.id).emit(`logout-response`, {
+            error: false,
+            message: CONSTANTS.USER_LOGGED_OUT,
+            userId: userId
+          });
+
+          socket.broadcast.emit(`chat-list-response`, {
+            error: false,
+            userDisconnected: true,
+            userid: userId
+          });
+        } catch (error) {
+          this.io.to(socket.id).emit(`logout-response`, {
+            error: true,
+            message: CONSTANTS.SERVER_ERROR_MESSAGE,
+            userId: userId
+          });
+        }
+      });
+
+      /**
+       * sending the disconnected user to all socket users.
+       */
+      socket.on('disconnect', async () => {
+        socket.broadcast.emit(`chat-list-response`, {
+          error: false,
+          userDisconnected: true,
+          userid: socket.request._query['userId']
+        });
+
       });
     });
 

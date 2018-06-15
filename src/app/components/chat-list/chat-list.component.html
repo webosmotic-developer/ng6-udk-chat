@@ -1,0 +1,7 @@
+<ul class="list-group" *ngIf="chatListUsers.length">
+  <li class="list-group-item list-group-item-action c-pointer"
+      *ngFor="let user of chatListUsers | orderBy: ['username']">
+    <i class="fa fa-circle mr-2"
+       [ngClass]="(user.online === 'Y')?'text-success':'text-danger'"></i>{{user.username}}
+  </li>
+</ul>

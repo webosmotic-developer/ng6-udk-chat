@@ -1,22 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../common/services/auth/auth.service';
 import { SocketService } from '../../common/services/socket/socket.service';
+import { ChatListComponent } from '../chat-list/chat-list.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   public authUser: any;
-  public userArr: any;
+
+  @ViewChild(ChatListComponent) chatListComponent: ChatListComponent;
 
 
   constructor(
     private authService: AuthService,
     private socketService: SocketService) {
     this.authUser = authService.getAuthUser();
-    this.userArr = [];
+    console.log(this.chatListComponent);
   }
 
   ngOnInit() {
@@ -24,10 +26,21 @@ export class DashboardComponent implements OnInit {
     const socket: any = this.socketService.connectSocket(this.authUser.id);
 
     // calling getChatList() service method to get the chat list.
-    this.socketService.getChatList(this.authUser.id)
-      .then((res) => {
-        this.userArr = res;
-      }).catch((error: any) => {
+    /*  this.socketService.getChatList(this.authUser.id)
+        .then((res) => {
+          this.userArr = res;
+        }).catch((error: any) => {
+      });*/
+
+  }
+
+  ngAfterViewInit() {
+    /* calling getChatList() service method to get the chat list. */
+    this.socketService.getChatList(this.authUser.id).subscribe((chatListResponse: any) => {
+      // console.log(chatListResponse.chatList);
+      // this.overlayDisplay = false;
+      console.log('this.chatListComponent', this.chatListComponent);
+      this.chatListComponent.getChatList(chatListResponse, this.authUser.id);
     });
   }
 
