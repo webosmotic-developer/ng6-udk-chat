@@ -6,30 +6,63 @@
 
 'use strict';
 import { QueryHandler } from '../handlers/query-handler';
+const CONSTANTS = require('./../config/constants');
 
 export class Socket {
   io: any;
+  queryHandler: any;
 
   constructor(socket) {
     this.io = socket;
+    this.queryHandler = new QueryHandler();
   }
 
   socketEvents() {
     this.io.on('connection', (socket) => {
-      console.log('working');
 
-      socket.emit('test1', {test: '123456'});
+      /* Get the user's Chat list	*/
+      socket.on(`chat-list`, async (data) => {
+        if (!data.userId) {
+          this.io.emit(`chat-list-response`, {
+            error: true,
+            message: CONSTANTS.USER_NOT_FOUND
+          });
+        } else {
+          try {
+            const [UserInfoResponse, chatlistResponse] = await Promise.all([
+              this.queryHandler.getUserInfo({
+                userId: data.userId,
+                socketId: false
+              }),
+              this.queryHandler.getChatList(socket.id)
+            ]);
+            this.io.to(socket.id).emit(`chat-list-response`, {
+              error: false,
+              singleUser: false,
+              chatList: chatlistResponse
+            });
+            socket.broadcast.emit(`chat-list-response`, {
+              error: false,
+              singleUser: true,
+              chatList: UserInfoResponse
+            });
+          } catch (error) {
+            this.io.to(socket.id).emit(`chat-list-response`, {
+              error: true,
+              chatList: []
+            });
+          }
+        }
+      });
     });
 
   }
 
   socketConfig() {
-    const queryHandler = new QueryHandler();
     this.io.use(async (socket, next) => {
       // console.log('------', socket.request);
       try {
-        console.log('try block');
-        await queryHandler.addSocketId({
+        await this.queryHandler.addSocketId({
           userId: socket.request._query['userId'],
           socketId: socket.id
         });

@@ -168,7 +168,7 @@ export class QueryHandler {
         }
       }
     };
-    console.log('data', data)
+    console.log('data', data);
     return new Promise(async (resolve, reject) => {
       try {
         const [DB, ObjectID] = await this.Mongodb.onConnect();
@@ -185,13 +185,13 @@ export class QueryHandler {
     });
   }
 
-  getChatList(userId) {
+  getChatList(socketId) {
     return new Promise(async (resolve, reject) => {
       try {
         const [DB, ObjectID] = await this.Mongodb.onConnect();
         DB.collection('users').aggregate([{
           $match: {
-            'socketId': {$ne: userId}
+            'socketId': {$ne: socketId}
           }
         }, {
           $project: {
@@ -206,6 +206,7 @@ export class QueryHandler {
           if (err) {
             reject(err);
           }
+          console.log('result', result);
           resolve(result);
         });
       } catch (error) {

@@ -17,5 +17,20 @@ export class SocketService {
 	*/
   connectSocket(userId: string): void {
     this.socket = io(this.BASE_URL, {query: `userId=${userId}`});
+    return this.socket;
+  }
+
+  getChatList(userId) {
+    if (userId !== null) {
+      this.socket.emit('chat-list', {userId: userId});
+    }
+    return new Promise((resolve, reject) => {
+      this.socket.on('chat-list-response', (data: any) => {
+        resolve(data.chatList);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
   }
 }

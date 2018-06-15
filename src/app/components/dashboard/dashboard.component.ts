@@ -9,15 +9,26 @@ import { SocketService } from '../../common/services/socket/socket.service';
 })
 export class DashboardComponent implements OnInit {
   public authUser: any;
+  public userArr: any;
 
-  constructor(private authService: AuthService, private socketService: SocketService) {
+
+  constructor(
+    private authService: AuthService,
+    private socketService: SocketService) {
     this.authUser = authService.getAuthUser();
+    this.userArr = [];
   }
 
   ngOnInit() {
-    console.log(this.authUser);
     /* making socket connection by passing UserId. */
-    this.socketService.connectSocket(this.authUser.id);
+    const socket: any = this.socketService.connectSocket(this.authUser.id);
+
+    // calling getChatList() service method to get the chat list.
+    this.socketService.getChatList(this.authUser.id)
+      .then((res) => {
+        this.userArr = res;
+      }).catch((error: any) => {
+    });
   }
 
 }
