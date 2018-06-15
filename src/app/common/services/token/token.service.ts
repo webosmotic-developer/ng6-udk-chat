@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { Constant } from '../../constant';
 import * as jwt_decode from 'jwt-decode';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor() {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,) {
   }
 
   parseJwt(token) {
@@ -17,7 +18,9 @@ export class TokenService {
   }
 
   getToken(): string {
-    return localStorage.getItem(Constant.API_URL);
+    if (isPlatformBrowser(this.platformId)) {
+      return localStorage.getItem(Constant.API_URL);
+    }
   }
 
   getTokenExpirationDate(token: string): Date {

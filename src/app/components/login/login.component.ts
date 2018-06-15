@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../common/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,16 +13,16 @@ export class LoginComponent implements OnInit {
   public noMatch: boolean;
   public userObj: any = {};
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, public _router: Router) {
   }
 
   ngOnInit() {
   }
 
-  fnLogin(newUser) {
-    this.authService.signUp(newUser)
+  fnLogin(authObj) {
+    this.authService.login(authObj)
       .then((res) => {
-        console.log(res);
+        this._router.navigate(['dashboard']);
       }).catch((error: any) => {
 
     });

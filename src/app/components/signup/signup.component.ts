@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Constant } from '../../common/constant';
 import { AuthService } from '../../common/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class SignupComponent implements OnInit {
   public newUser: any = {};
   public cfPass: string;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, public _router: Router) {
   }
 
   ngOnInit() {
@@ -39,7 +40,7 @@ export class SignupComponent implements OnInit {
   fnRegisterUser(newUser) {
     this.authService.signUp(newUser)
       .then((res) => {
-        console.log(res);
+        this._router.navigate(['dashboard']);
       }).catch((error: any) => {
 
     });

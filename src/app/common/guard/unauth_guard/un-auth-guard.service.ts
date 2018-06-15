@@ -13,8 +13,8 @@ export class UnAuthGuardService implements CanActivate {
   }
 
   canActivate(): boolean {
-    if (!this.authService.isAuthenticated()) {
-      this._router.navigate(['signin']);
+    if (this.authService.isAuthenticated()) {
+      this._router.navigate(['dashboard']);
       return false;
     }
     return true;

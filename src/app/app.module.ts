@@ -13,6 +13,8 @@ import { TokenService } from './common/services/token/token.service';
 import { AuthGuardService } from './common/guard/auth_guard/auth-guard.service';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainComponent } from './components/main/main.component';
+import { SocketService } from './common/services/socket/socket.service';
+import { NavbarComponent } from './common/components/navbar/navbar.component';
 
 export const APP_ID = 'my-app';
 
@@ -23,7 +25,8 @@ export const APP_ID = 'my-app';
     SignupComponent,
     LoginComponent,
     DashboardComponent,
-    MainComponent
+    MainComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: APP_ID}),
@@ -34,7 +37,8 @@ export const APP_ID = 'my-app';
   providers: [
     AuthService,
     TokenService,
-    AuthGuardService
+    AuthGuardService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

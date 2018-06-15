@@ -1,1 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  height: 100%;
+}
+
+.h-90 {
+  height: 90% !important;
+}
+
+.h-80 {
+  height: 80% !important;
+}
+
+.h-nav{
+  height: calc(100% - 56px) !important;
+  min-height: 400px;
+}
+
+.c-pointer{
+  cursor: pointer;
+}

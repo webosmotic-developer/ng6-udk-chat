@@ -14,13 +14,18 @@ const routes: Routes = [
   },
   {
     path: 'signin', component: LoginComponent,
-    canActivate: [UnauthGuard],
+    canActivate: [UnauthGuard]
   },
   {
     path: '',
     component: MainComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        redirectTo: '/dashboard',
+        pathMatch: 'full'
+      },
       {
         path: 'dashboard',
         component: DashboardComponent
