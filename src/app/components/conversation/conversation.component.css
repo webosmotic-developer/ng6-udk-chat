@@ -34,7 +34,7 @@ body {
 }
 .people-list ul {
   padding: 20px;
-  height: 400px;
+  height: 80%;
   overflow: auto;
 }
 .people-list ul li {
@@ -103,6 +103,8 @@ body {
   margin-bottom: 20px;
   width: 90%;
   position: relative;
+  word-break: break-all;
+  white-space: pre-line;
 }
 .chat .chat-history .message:after {
   bottom: 100%;

@@ -39,9 +39,8 @@
           <i class="fa fa-circle me ml-2" *ngIf="message.fromUserId === user.id"></i>
 
         </div>
-        <div class="message"
+        <div class="message" [innerHTML]="message.message"
              [ngClass]="message.fromUserId === user.id ?  'other-message float-right' : 'my-message' ">
-          {{ message.message}}
         </div>
       </li>
     </ul>
@@ -49,7 +48,9 @@
 
   <div class="chat-message clearfix">
     <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"
-              [(ngModel)]="message"></textarea>
+              [(ngModel)]="message"
+    (focus)="fnType(true)"
+    (blur)="fnType(false)"></textarea>
 
     <button class="btn btn-info pull-right" (click)="sendMessage()">Send</button>
 

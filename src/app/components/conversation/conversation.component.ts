@@ -34,6 +34,10 @@ export class ConversationComponent implements OnChanges {
     });
   }
 
+  fnType(isType: boolean){
+
+  }
+
   sendMessage() {
       const message = this.message;
       if (message === '' || message === undefined || message === null) {
