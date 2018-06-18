@@ -8,6 +8,7 @@ import {EmitterService} from '../../common/services/emitter/emitter.service';
 })
 export class ConversationComponent implements OnInit {
   public message: string;
+  public messages: any[] = [];
   public selectedUser: any;
 
   constructor() {
@@ -17,6 +18,10 @@ export class ConversationComponent implements OnInit {
 
     EmitterService.get('selectedUserInfo').subscribe((selectedUser: any) => {
       this.selectedUser = selectedUser;
+    });
+
+    EmitterService.get('conversation').subscribe((data: any ) => {
+      this.messages = data.messages;
     });
   }
 

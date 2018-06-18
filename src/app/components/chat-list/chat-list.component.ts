@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../common/services/auth/auth.service';
 import { SocketService } from '../../common/services/socket/socket.service';
 import {EmitterService} from '../../common/services/emitter/emitter.service';
+import {ChatService} from '../../common/services/chat-service/chat.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -15,7 +16,7 @@ export class ChatListComponent implements OnInit {
 
 
   constructor(private authService: AuthService,
-              private socketService: SocketService) {
+              private socketService: SocketService, private chatService: ChatService) {
   }
 
   ngOnInit() {
@@ -59,6 +60,12 @@ export class ChatListComponent implements OnInit {
 
     /* Sending selected users information to other component. */
     EmitterService.get('selectedUserInfo').emit(user);
+
+    /* calling method to get the messages */
+    this.chatService.getMessages({ userId: this.userId, toUserId: user.id }).then((response: any) => {
+      /* Sending conversation between two users to other component. */
+      EmitterService.get('conversation').emit(response);
+    });
 
   }
 
