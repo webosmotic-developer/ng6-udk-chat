@@ -69,6 +69,45 @@ export class Socket {
         }
       });
 
+
+      /**
+       * send the messages to the user
+       */
+      socket.on(`add-message`, async (data) => {
+        if (data.message === '') {
+          this.io.to(socket.id).emit(`add-message-response`, {
+            error: true,
+            message: CONSTANTS.MESSAGE_NOT_FOUND
+          });
+        } else if (data.fromUserId === '') {
+          this.io.to(socket.id).emit(`add-message-response`, {
+            error: true,
+            message: CONSTANTS.SERVER_ERROR_MESSAGE
+          });
+        } else if (data.toUserId === '') {
+          this.io.to(socket.id).emit(`add-message-response`, {
+            error: true,
+            message: CONSTANTS.SELECT_USER
+          });
+        } else {
+          try {
+            const [toSocketId, messageResult] = await Promise.all([
+              this.queryHandler.getUserInfo({
+                userId: data.toUserId,
+                socketId: true
+              }),
+              this.queryHandler.insertMessages(data)
+            ]);
+            this.io.to(toSocketId).emit(`add-message-response`, data);
+          } catch (error) {
+            this.io.to(socket.id).emit(`add-message-response`, {
+              error: true,
+              message: CONSTANTS.MESSAGE_STORE_ERROR
+            });
+          }
+        }
+      });
+
       /**
        * Logout the user
        */

@@ -170,4 +170,32 @@ export class RouteHandler {
       }
     }
   }
+
+  async getMessagesRouteHandler(request, response) {
+    const queryHandler = new QueryHandler();
+    const userId = request.body.userId;
+    const toUserId = request.body.toUserId;
+    if (userId === '') {
+      response.status(CONSTANTS.SERVER_ERROR_HTTP_CODE).json({
+        error: true,
+        message: CONSTANTS.USERID_NOT_FOUND
+      });
+    } else {
+      try {
+        const messagesResponse = await queryHandler.getMessages({
+          userId: userId,
+          toUserId: toUserId
+        });
+        response.status(CONSTANTS.SERVER_OK_HTTP_CODE).json({
+          error: false,
+          messages: messagesResponse
+        });
+      } catch (error) {
+        response.status(CONSTANTS.SERVER_NOT_ALLOWED_HTTP_CODE).json({
+          error: true,
+          messages: CONSTANTS.USER_NOT_LOGGED_IN
+        });
+      }
+    }
+  }
 }

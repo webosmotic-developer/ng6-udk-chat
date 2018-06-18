@@ -22,7 +22,7 @@ export class Routes {
 
      // this.app.post('/userSessionCheck', routeHandler.userSessionCheckRouteHandler);
 
-     // this.app.post('/getMessages', routeHandler.getMessagesRouteHandler);
+     this.app.post('/getMessages', this.routeHandler.getMessagesRouteHandler);
 
      // this.app.get('*', routeHandler.routeNotFoundHandler);
   }
