@@ -91,6 +91,7 @@ export class Socket {
           });
         } else {
           try {
+            console.log('---', data.toUserId);
             const [toSocketId, messageResult] = await Promise.all([
               this.queryHandler.getUserInfo({
                 userId: data.toUserId,
@@ -100,6 +101,7 @@ export class Socket {
             ]);
             this.io.to(toSocketId).emit(`add-message-response`, data);
           } catch (error) {
+            console.log('error-103.socket', error);
             this.io.to(socket.id).emit(`add-message-response`, {
               error: true,
               message: CONSTANTS.MESSAGE_STORE_ERROR

@@ -1,10 +1,10 @@
-<div *ngIf="selectedUser">
+<!--<div *ngIf="selectedUser">
   <div>
     {{selectedUser.username}}
   </div>
   <div>
     <ul class="message-thread">
-      <li *ngFor="let message of messages">
+      <li *ngFor="let message of messages" class="chat-talk">
         {{ message.message}}
       </li>
     </ul>
@@ -17,4 +17,41 @@
         </span>
       </div>
     </div>
+</div>-->
+
+<div class="chat h-100 w-100" *ngIf="selectedUser">
+  <div class="chat-header clearfix">
+    <div class="chat-about">
+      <div class="chat-with">{{selectedUser.username | titlecase}}</div>
+    </div>
+
+  </div> <!-- end chat-header -->
+
+  <div class="chat-history">
+    <ul class="p-0">
+      <li class="clearfix" *ngFor="let message of messages"
+          [ngClass]="message.fromUserId === user.id ? 'clearfix' : '' ">
+        <div class="message-data"
+             [ngClass]="message.fromUserId === user.id ? 'align-right' : ''">
+          <i class="fa fa-circle online mr-2" *ngIf="message.fromUserId !== user.id"></i>
+          <span
+            class="message-data-name">{{message.fromUserId === user.id ? user.username : selectedUser.username}}</span>
+          <i class="fa fa-circle me ml-2" *ngIf="message.fromUserId === user.id"></i>
+
+        </div>
+        <div class="message"
+             [ngClass]="message.fromUserId === user.id ?  'other-message float-right' : 'my-message' ">
+          {{ message.message}}
+        </div>
+      </li>
+    </ul>
+  </div> <!-- end chat-history -->
+
+  <div class="chat-message clearfix">
+    <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"
+              [(ngModel)]="message"></textarea>
+
+    <button class="btn btn-info pull-right" (click)="sendMessage()">Send</button>
+
+  </div> <!-- end chat-message -->
 </div>
