@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {EmitterService} from '../../common/services/emitter/emitter.service';
 import {SocketService} from '../../common/services/socket/socket.service';
 import {AuthService} from '../../common/services/auth/auth.service';
@@ -9,27 +9,20 @@ import {Router} from '@angular/router';
   templateUrl: './conversation.component.html',
   styleUrls: ['./conversation.component.css']
 })
-export class ConversationComponent implements OnInit {
+export class ConversationComponent implements OnChanges {
   public message: string;
   public messages: any[] = [];
   public selectedUser: any;
   public user: any;
   public userId: any;
+  @Input() conversation: string;
+  @Input() selectedUserInfo: string;
 
   constructor(private socketService: SocketService, private authService: AuthService, private router: Router) {
     this.user = authService.getAuthUser();
   }
 
-  ngOnInit() {
 
-    EmitterService.get('selectedUserInfo').subscribe((selectedUser: any) => {
-      this.selectedUser = selectedUser;
-    });
-
-    EmitterService.get('conversation').subscribe((data: any ) => {
-      this.messages = data.messages;
-    });
-  }
 
   listenForMessages(userId: string): void {
     this.userId = userId;
@@ -65,6 +58,17 @@ export class ConversationComponent implements OnInit {
         this.message = '';
       }
 
+  }
+
+  ngOnChanges(changes: any) {
+    /* Fetching selected users information from other component. */
+    EmitterService.get(this.selectedUserInfo).subscribe((selectedUser: any) => {
+      this.selectedUser = selectedUser;
+    });
+
+    EmitterService.get(this.conversation).subscribe((data: any ) => {
+      this.messages = data.messages;
+    });
   }
 
 }

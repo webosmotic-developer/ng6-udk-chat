@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public authUser: any;
   public broadcastedMsg: any;
   public broadcastMsg: string;
+  public conversation = 'CONVERSATION';
+  public selectedUserInfo = 'SELECTEDUSERINFO';
 
   @ViewChild(ChatListComponent) chatListComponent: ChatListComponent;
   @ViewChild(ConversationComponent) conversationComponent: ConversationComponent;

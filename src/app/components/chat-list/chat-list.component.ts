@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import { AuthService } from '../../common/services/auth/auth.service';
 import { SocketService } from '../../common/services/socket/socket.service';
 import {EmitterService} from '../../common/services/emitter/emitter.service';
@@ -13,6 +13,9 @@ export class ChatListComponent implements OnInit {
   private userId: string = null;
   public chatListUsers: any = [];
   public selectedUserId: any;
+
+  @Input() conversation: string;
+  @Input() selectedUserInfo: string;
 
 
   constructor(private authService: AuthService,
@@ -59,12 +62,12 @@ export class ChatListComponent implements OnInit {
     this.selectedUserId = user.id;
 
     /* Sending selected users information to other component. */
-    EmitterService.get('selectedUserInfo').emit(user);
+    EmitterService.get(this.selectedUserInfo).emit(user);
 
     /* calling method to get the messages */
     this.chatService.getMessages({ userId: this.userId, toUserId: user.id }).then((response: any) => {
       /* Sending conversation between two users to other component. */
-      EmitterService.get('conversation').emit(response);
+      EmitterService.get(this.conversation).emit(response);
     });
 
   }

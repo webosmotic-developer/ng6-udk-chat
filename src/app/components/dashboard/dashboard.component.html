@@ -7,10 +7,10 @@
           <button class="btn btn-info" type="button" (click)="fnBroadcast(broadcastMsg)">Broadcast</button>
         </div>
       </div>
-      <app-chat-list></app-chat-list>
+      <app-chat-list [conversation]="conversation" [selectedUserInfo]="selectedUserInfo"></app-chat-list>
     </div>
     <div class="col-8">
-      <app-conversation></app-conversation>
+      <app-conversation [conversation]="conversation" [selectedUserInfo]="selectedUserInfo"></app-conversation>
     </div>
   </div>
 </div>
