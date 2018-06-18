@@ -56,6 +56,19 @@ export class Socket {
         }
       });
 
+      socket.on(`broadcast-test`, async (data) => {
+        try {
+          socket.broadcast.emit(`test-response`, {
+            error: false,
+            data: data.msg
+          });
+        } catch (error) {
+          socket.broadcast.emit(`test-response`, {
+            error: true,
+          });
+        }
+      });
+
       /**
        * Logout the user
        */

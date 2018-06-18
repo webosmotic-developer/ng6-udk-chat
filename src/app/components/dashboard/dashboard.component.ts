@@ -10,6 +10,8 @@ import { ChatListComponent } from '../chat-list/chat-list.component';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   public authUser: any;
+  public broadcastedMsg: any;
+  public broadcastMsg: string;
 
   @ViewChild(ChatListComponent) chatListComponent: ChatListComponent;
 
@@ -18,13 +20,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private socketService: SocketService) {
     this.authUser = authService.getAuthUser();
-    console.log(this.chatListComponent);
   }
 
   ngOnInit() {
     /* making socket connection by passing UserId. */
     const socket: any = this.socketService.connectSocket(this.authUser.id);
-
     // calling getChatList() service method to get the chat list.
     /*  this.socketService.getChatList(this.authUser.id)
         .then((res) => {
@@ -39,9 +39,21 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.socketService.getChatList(this.authUser.id).subscribe((chatListResponse: any) => {
       // console.log(chatListResponse.chatList);
       // this.overlayDisplay = false;
-      console.log('this.chatListComponent', this.chatListComponent);
       this.chatListComponent.getChatList(chatListResponse, this.authUser.id);
     });
   }
 
+  fnBroadcast(msg?: string) {
+
+    if (msg === '' || msg === undefined || msg === null) {
+      alert('There is nothing to broadcast.');
+    } else {
+
+      this.socketService.broadcastMsg(msg).subscribe((BroadcastResponse: any) => {
+        alert(BroadcastResponse.data);
+      });
+      /* this.broadcastMsg = '';
+       this.broadcastedMsg = this.socketService.receiveMessages();*/
+    }
+  }
 }

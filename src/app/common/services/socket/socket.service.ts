@@ -17,7 +17,7 @@ export class SocketService {
 	* Method to connect the users to socket
 	*/
   connectSocket(userId: string): void {
-    this.socket = io(this.BASE_URL, {query: `userId=${userId}`});
+    this.socket = io(this.BASE_URL, { query: `userId=${userId}` });
     return this.socket;
   }
 
@@ -41,7 +41,7 @@ export class SocketService {
    */
   getChatList(userId: string = null): Observable<any> {
     if (userId !== null) {
-      this.socket.emit('chat-list', {userId: userId});
+      this.socket.emit('chat-list', { userId: userId });
     }
     return new Observable(observer => {
       this.socket.on('chat-list-response', (data: any) => {
@@ -52,4 +52,35 @@ export class SocketService {
       };
     });
   }
+
+  /*
+    broadcastMsg(msg) {
+      this.socket.emit('broadcast-test', { desc: msg });
+    }
+  */
+
+  /*
+ * Method to receive chat-list-response event.
+ */
+  broadcastMsg(msg: string = null): Observable<any> {
+    if (msg !== null) {
+      this.socket.emit('broadcast-test', { msg: msg });
+    }
+    return new Observable(observer => {
+      this.socket.on('test-response', (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+
+  /*receiveMessages() {
+    this.socket.on('broadcast-test-response', (data: any) => {
+      console.log('---', data);
+      return data.desc;
+    });
+  }*/
 }

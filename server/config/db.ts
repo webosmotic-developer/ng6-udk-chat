@@ -17,7 +17,6 @@ export class Db {
     return new Promise((resolve, reject) => {
       this.mongoClient.connect(mongoURL, (err, db) => {
         if (err) {
-          console.log('------', err)
           reject(err);
         } else {
           assert.equal(null, err);

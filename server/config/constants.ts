@@ -37,3 +37,5 @@ module.exports.USER_LOGIN_PASSWORD_FAILED = `Wrong password.`;
 module.exports.USER_NOT_LOGGED_IN = `User is not logged in.`;
 module.exports.USER_LOGGED_OUT = `User is not logged in.`;
 /* Route related constants ends*/
+
+module.exports.MSG_NOT_FOUND = `Message does not exits.`;

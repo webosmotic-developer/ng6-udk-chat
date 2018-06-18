@@ -168,7 +168,6 @@ export class QueryHandler {
         }
       }
     };
-    console.log('data', data);
     return new Promise(async (resolve, reject) => {
       try {
         const [DB, ObjectID] = await this.Mongodb.onConnect();
@@ -206,7 +205,6 @@ export class QueryHandler {
           if (err) {
             reject(err);
           }
-          console.log('result', result);
           resolve(result);
         });
       } catch (error) {

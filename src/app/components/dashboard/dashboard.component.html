@@ -1,6 +1,12 @@
 <div class="container h-nav border">
   <div class="row h-100">
     <div class="col-4">
+      <div class="input-group mb-1 mt-1">
+        <input type="text" [(ngModel)]="broadcastMsg" class="form-control" placeholder="Enter message">
+        <div class="input-group-append">
+          <button class="btn btn-info" type="button" (click)="fnBroadcast(broadcastMsg)">Broadcast</button>
+        </div>
+      </div>
       <app-chat-list></app-chat-list>
     </div>
     <div class="col-8">
