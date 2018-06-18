@@ -58,7 +58,9 @@ export class ConversationComponent implements OnInit {
         this.messages = [...this.messages, data];
         /* calling method to send the messages */
         this.socketService.sendMessage({
-          data
+          fromUserId: this.user.id,
+          message: (message).trim(),
+          toUserId: this.selectedUser.id
         });
         this.message = '';
       }
