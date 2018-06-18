@@ -2,10 +2,17 @@
   <div>
     {{selectedUser.username}}
   </div>
+  <div>
+    <ul class="message-thread">
+      <li *ngFor="let message of messages">
+        {{ message.message}}
+      </li>
+    </ul>
+  </div>
     <div class="input-group mb-3 mt-3">
       <input type="text" class="form-control" placeholder="Write a message" [(ngModel)]="message">
       <div class="input-group-append" >
-        <span class="input-group-text">
+        <span class="input-group-text" (click)="sendMessage()">
            <button class="btn btn-primary">Send</button>
         </span>
       </div>

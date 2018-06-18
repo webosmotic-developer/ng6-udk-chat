@@ -76,6 +76,28 @@ export class SocketService {
     });
   }
 
+  /*
+	* Method to emit the add-messages event.
+	*/
+  sendMessage(message: any): void {
+    this.socket.emit('add-message', message);
+  }
+
+  /*
+	* Method to receive add-message-response event.
+	*/
+  receiveMessages(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('add-message-response', (data) => {
+        observer.next(data);
+      });
+
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
 
   /*receiveMessages() {
     this.socket.on('broadcast-test-response', (data: any) => {
