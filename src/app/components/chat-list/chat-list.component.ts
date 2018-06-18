@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../common/services/auth/auth.service';
 import { SocketService } from '../../common/services/socket/socket.service';
+import {EmitterService} from '../../common/services/emitter/emitter.service';
 
 @Component({
   selector: 'app-chat-list',
@@ -10,6 +11,7 @@ import { SocketService } from '../../common/services/socket/socket.service';
 export class ChatListComponent implements OnInit {
   private userId: string = null;
   public chatListUsers: any = [];
+  public selectedUserId: any;
 
 
   constructor(private authService: AuthService,
@@ -50,6 +52,14 @@ export class ChatListComponent implements OnInit {
            throw error;
          });*/
     }
+  }
+
+  selectedUser(user: any): void {
+    this.selectedUserId = user.id;
+
+    /* Sending selected users information to other component. */
+    EmitterService.get('selectedUserInfo').emit(user);
+
   }
 
 }

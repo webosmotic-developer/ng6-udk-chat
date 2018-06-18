@@ -17,6 +17,7 @@ import { SocketService } from './common/services/socket/socket.service';
 import { NavbarComponent } from './common/components/navbar/navbar.component';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { OrderByPipe } from './common/pipes/order-by.pipe';
+import { ConversationComponent } from './components/conversation/conversation.component';
 
 export const APP_ID = 'my-app';
 
@@ -30,7 +31,8 @@ export const APP_ID = 'my-app';
     MainComponent,
     NavbarComponent,
     ChatListComponent,
-    OrderByPipe
+    OrderByPipe,
+    ConversationComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: APP_ID}),

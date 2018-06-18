@@ -1,0 +1,13 @@
+<div *ngIf="selectedUser">
+  <div>
+    {{selectedUser.username}}
+  </div>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Write a message" [(ngModel)]="message">
+      <div class="input-group-append">
+        <span class="input-group-text" (click)="sendMessage($event)">
+           <button class="btn btn-primary">Send</button>
+        </span>
+      </div>
+    </div>
+</div>
