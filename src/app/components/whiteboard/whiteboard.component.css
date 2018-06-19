@@ -85,7 +85,7 @@ body {
 .chat .chat-history {
   padding: 10px 10px 5px;
   border-bottom: 2px solid white;
-  overflow-y: auto;
+  overflow-y: hidden;
   height: 90%;
 }
 .chat .chat-history .message-data {
@@ -188,4 +188,17 @@ li{
 .whiteboard{
   border:2px solid #000;
   border-radius: 10px;
+}
+
+
+.fa-2{
+  font-size: 8px;
+}
+
+.fa-4{
+  font-size: 10px;
+}
+
+.fa-10{
+  font-size: 14px;
 }

@@ -13,13 +13,24 @@
     </div>
 
     <i class="fa fa-commenting-o fa-lg pull-right m-2 c-pointer" (click)="fnShowChat()"></i>
+    <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group mr-2 btn-group-sm" role="group" aria-label="First group">
+        <button type="button" class="btn fa-2 active" (click)="fnSetlineWidth(2)"><i class="fa fa-ws fa-circle"></i>
+        </button>
+        <button type="button" class="btn fa-4" (click)="fnSetlineWidth(4)"><i class="fa fa-ws  fa-circle"></i></button>
+        <button type="button" class="btn fa-10" (click)="fnSetlineWidth(10)"><i class="fa fa-ws  fa-circle"></i>
+        </button>
+      </div>
+    </div>
+    <input class="pull-right m-1" type="color" (change)="onColorUpdate($event)">
 
   </div> <!-- end chat-header -->
 
-  <div class="chat-history p-0" style="position: relative" >
+  <div class="chat-history p-0" style="position: relative">
     <canvas class="whiteboard" (mouseup)="fnOnMouseUp($event)"
+            (mouseout)="fnOnMouseUp($event)"
             (mousedown)="fnOnMouseDown($event)"
-            (mousemove)="fnOnMouseMove($event)" ></canvas>
+            (mousemove)="fnOnMouseMove($event)"></canvas>
   </div> <!-- end chat-history -->
 
 </div>
