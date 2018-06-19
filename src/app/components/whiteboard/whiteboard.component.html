@@ -1,6 +1,25 @@
-
+<!--
 <div class="w-100 h-100" *ngIf="selectedUser">
   <canvas class="whiteboard" (mouseup)="fnOnMouseUp($event)"
         (mousedown)="fnOnMouseDown($event)"
         (mousemove)="fnOnMouseMove($event)"></canvas>
+</div>-->
+
+<div class="chat h-100 w-100" [hidden]="!selectedUser">
+  <div class="chat-header clearfix">
+    <div class="chat-about">
+      <div class="chat-with" *ngIf="selectedUser">{{selectedUser.username | titlecase}}
+      </div>
+    </div>
+
+    <i class="fa fa-commenting-o fa-lg pull-right m-2 c-pointer" (click)="fnShowChat()"></i>
+
+  </div> <!-- end chat-header -->
+
+  <div class="chat-history p-0" style="position: relative" >
+    <canvas class="whiteboard" (mouseup)="fnOnMouseUp($event)"
+            (mousedown)="fnOnMouseDown($event)"
+            (mousemove)="fnOnMouseMove($event)" ></canvas>
+  </div> <!-- end chat-history -->
+
 </div>

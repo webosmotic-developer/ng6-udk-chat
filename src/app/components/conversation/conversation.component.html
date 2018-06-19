@@ -1,24 +1,3 @@
-<!--<div *ngIf="selectedUser">
-  <div>
-    {{selectedUser.username}}
-  </div>
-  <div>
-    <ul class="message-thread">
-      <li *ngFor="let message of messages" class="chat-talk">
-        {{ message.message}}
-      </li>
-    </ul>
-  </div>
-    <div class="input-group mb-3 mt-3">
-      <input type="text" class="form-control" placeholder="Write a message" [(ngModel)]="message">
-      <div class="input-group-append" >
-        <span class="input-group-text" (click)="sendMessage()">
-           <button class="btn btn-primary">Send</button>
-        </span>
-      </div>
-    </div>
-</div>-->
-
 <div class="chat h-100 w-100" *ngIf="selectedUser">
   <div class="chat-header clearfix">
     <div class="chat-about">
@@ -28,6 +7,8 @@
         Typing...</span>
       </div>
     </div>
+
+    <i class="fa fa-pencil-square-o fa-lg pull-right m-2 c-pointer" (click)="fnShowBoard()"></i>
 
   </div> <!-- end chat-header -->
 
@@ -55,7 +36,7 @@
               [(ngModel)]="message"
               (keypress)="fnType(true)"
               (blur)="fnType(false)"
-              ></textarea>
+    ></textarea>
 
     <button class="btn btn-info pull-right btn-sm" (click)="sendMessage()">Send</button>
 

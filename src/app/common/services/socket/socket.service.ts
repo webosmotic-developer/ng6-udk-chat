@@ -118,4 +118,23 @@ export class SocketService {
     });
   }
 
+  drawLine(data: any): void {
+    console.log('data', data);
+    this.socket.emit('drawing', data);
+  }
+
+
+  receiveDrawingData(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('new-drawing', (data) => {
+        console.log('service recieve data', data);
+        observer.next(data);
+      });
+
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
 }

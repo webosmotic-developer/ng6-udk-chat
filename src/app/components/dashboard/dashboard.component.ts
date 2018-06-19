@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public authUser: any;
   public broadcastedMsg: any;
   public broadcastMsg: string;
+  public isShowBoard: boolean;
   public conversation = 'CONVERSATION';
   public selectedUserInfo = 'SELECTEDUSERINFO';
 
@@ -24,6 +25,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private socketService: SocketService) {
     this.authUser = authService.getAuthUser();
+    this.isShowBoard = false;
   }
 
   ngOnInit() {

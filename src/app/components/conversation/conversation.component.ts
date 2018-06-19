@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { EmitterService } from '../../common/services/emitter/emitter.service';
 import { SocketService } from '../../common/services/socket/socket.service';
 import { AuthService } from '../../common/services/auth/auth.service';
@@ -19,6 +19,7 @@ export class ConversationComponent implements OnChanges {
   public timeout: any;
   @Input() conversation: string;
   @Input() selectedUserInfo: string;
+  @Output() EventShowBoard: any = new EventEmitter<any>();
 
   constructor(private socketService: SocketService, private authService: AuthService, private router: Router) {
     this.user = authService.getAuthUser();
@@ -96,6 +97,9 @@ export class ConversationComponent implements OnChanges {
 
   }
 
+  fnShowBoard() {
+    this.EventShowBoard.next();
+  }
 
   ngOnChanges(changes: any) {
     /* Fetching selected users information from other component. */

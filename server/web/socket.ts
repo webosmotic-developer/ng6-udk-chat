@@ -109,6 +109,38 @@ export class Socket {
         }
       });
 
+      socket.on(`drawing`, async (data) => {
+        console.log('drwaing data', data);
+        if (data.fromUserId === '') {
+          this.io.to(socket.id).emit(`new-drawing`, {
+            error: true,
+            message: CONSTANTS.SERVER_ERROR_MESSAGE
+          });
+        } else if (data.toUserId === '') {
+          this.io.to(socket.id).emit(`new-drawing`, {
+            error: true,
+            message: CONSTANTS.SELECT_USER
+          });
+        } else {
+          try {
+            const [toSocketId] = await Promise.all([
+              this.queryHandler.getUserInfo({
+                userId: data.toUserId,
+                socketId: true
+              })
+            ]);
+            console.log('--- toSocketId', toSocketId);
+            this.io.to(toSocketId).emit(`new-drawing`, data);
+          } catch (error) {
+            this.io.to(socket.id).emit(`new-drawing`, {
+              error: true,
+              message: CONSTANTS.MESSAGE_STORE_ERROR
+            });
+          }
+        }
+      });
+
+
       socket.on(`start-typing`, async (data) => {
         if (data.fromUserId === '') {
           this.io.to(socket.id).emit(`typing-response`, {
@@ -137,72 +169,6 @@ export class Socket {
           }
         }
       });
-
-      // socket.on(`start-typing`, async (data) => {
-      //   console.log('=======', data);
-      //   if (data.fromUserId === '') {
-      //     this.io.to(socket.id).emit(`start-typing-response`, {
-      //       error: true,
-      //       message: CONSTANTS.SERVER_ERROR_MESSAGE
-      //     });
-      //   } else if (data.toUserId === '') {
-      //     this.io.to(socket.id).emit(`start-typing-response`, {
-      //       error: true,
-      //       message: CONSTANTS.SELECT_USER
-      //     });
-      //   } else {
-      //     try {
-      //       const [toSocketId, testData] = await Promise.all([
-      //         this.queryHandler.getUserInfo({
-      //           userId: data.toUserId,
-      //           socketId: true,
-      //         }),
-      //         this.queryHandler.getUserInfo({
-      //           userId: data.toUserId,
-      //           socketId: true,
-      //         })
-      //       ]);
-      //       console.log('toSocketId', toSocketId, testData);
-      //       this.io.to(toSocketId).emit(`start-typing-response`, data);
-      //     } catch (error) {
-      //       console.log('error', error);
-      //       this.io.to(socket.id).emit(`start-typing-response`, {
-      //         error: true,
-      //         message: CONSTANTS.MESSAGE_STORE_ERROR
-      //       });
-      //     }
-      //   }
-      // });
-
-      /* socket.on(`stop-typing`, async (data) => {
-         if (data.fromUserId === '') {
-           this.io.to(socket.id).emit(`stop-typing-response`, {
-             error: true,
-             message: CONSTANTS.SERVER_ERROR_MESSAGE
-           });
-         } else if (data.toUserId === '') {
-           this.io.to(socket.id).emit(`stop-typing-response`, {
-             error: true,
-             message: CONSTANTS.SELECT_USER
-           });
-         } else {
-           try {
-             const [toSocketId] = await Promise.all([
-               this.queryHandler.getUserInfo({
-                 userId: data.toUserId,
-                 socketId: true,
-               }),
-             ]);
-             this.io.to(toSocketId).emit(`stop-typing-response`, {isTyping: false});
-           } catch (error) {
-             console.log('error-103.socket', error);
-             this.io.to(socket.id).emit(`stop-typing-response`, {
-               error: true,
-               message: CONSTANTS.MESSAGE_STORE_ERROR
-             });
-           }
-         }
-       });*/
 
       /**
        * Logout the user
