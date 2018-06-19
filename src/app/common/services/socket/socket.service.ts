@@ -77,11 +77,19 @@ export class SocketService {
   }
 
   /*
+   * Method to emit the add-messages event.
+   */
+  startTyping(message: any) {
+    this.socket.emit('start-typing', message);
+  }
+
+  /*
 	* Method to emit the add-messages event.
 	*/
   sendMessage(message: any): void {
     this.socket.emit('add-message', message);
   }
+
 
   /*
 	* Method to receive add-message-response event.
@@ -98,11 +106,16 @@ export class SocketService {
     });
   }
 
+  receiveTypes(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('typing-response', (data) => {
+        observer.next(data);
+      });
 
-  /*receiveMessages() {
-    this.socket.on('broadcast-test-response', (data: any) => {
-      console.log('---', data);
-      return data.desc;
+      return () => {
+        this.socket.disconnect();
+      };
     });
-  }*/
+  }
+
 }

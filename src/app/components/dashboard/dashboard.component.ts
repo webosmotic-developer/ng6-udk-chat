@@ -46,6 +46,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.chatListComponent.getChatList(chatListResponse, this.authUser.id);
     });
     this.conversationComponent.listenForMessages(this.authUser.id);
+    this.conversationComponent.listenTyping(this.authUser.id);
   }
 
   fnBroadcast(msg?: string) {

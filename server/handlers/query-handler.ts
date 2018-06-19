@@ -138,7 +138,6 @@ export class QueryHandler {
     return new Promise(async (resolve, reject) => {
       try {
         const [DB, ObjectID] = await this.Mongodb.onConnect();
-        console.log('socketId666666', userId, ObjectID(userId));
         DB.collection('users').aggregate([{
           $match: {
             _id: ObjectID(userId)
@@ -151,12 +150,9 @@ export class QueryHandler {
           if (err) {
             reject(err);
           }
-          console.log('socketId', socketId ? socketId : 'test-socketId');
-          console.log('result[0]', socketId ? result[0] : 'test-socketId');
           socketId ? resolve(result[0]['socketId']) : resolve(result);
         });
       } catch (error) {
-        console.log('error-157.query', error);
         reject(error);
       }
     });

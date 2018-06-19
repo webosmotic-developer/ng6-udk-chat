@@ -1,8 +1,8 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {EmitterService} from '../../common/services/emitter/emitter.service';
-import {SocketService} from '../../common/services/socket/socket.service';
-import {AuthService} from '../../common/services/auth/auth.service';
-import {Router} from '@angular/router';
+import { AfterViewInit, Component, Input, OnChanges, OnInit } from '@angular/core';
+import { EmitterService } from '../../common/services/emitter/emitter.service';
+import { SocketService } from '../../common/services/socket/socket.service';
+import { AuthService } from '../../common/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-conversation',
@@ -15,13 +15,14 @@ export class ConversationComponent implements OnChanges {
   public selectedUser: any;
   public user: any;
   public userId: any;
+  public isType: boolean;
+  public timeout: any;
   @Input() conversation: string;
   @Input() selectedUserInfo: string;
 
   constructor(private socketService: SocketService, private authService: AuthService, private router: Router) {
     this.user = authService.getAuthUser();
   }
-
 
 
   listenForMessages(userId: string): void {
@@ -34,35 +35,67 @@ export class ConversationComponent implements OnChanges {
     });
   }
 
-  fnType(isType: boolean){
+  listenTyping(userId: string): void {
+    this.userId = userId;
+    this.socketService.receiveTypes().subscribe((data: any) => {
+      /* subscribing for messages statrts */
+      if (this.selectedUser !== null && this.selectedUser.id === data.fromUserId) {
+        this.isType = data.isType;
 
+        if (this.isType) {
+          if (this.timeout) {
+            clearTimeout(this.timeout);
+          }
+          this.timeout = setTimeout(() => {
+            this.isType = false;
+          }, 3000);
+        }
+      }
+    });
+  }
+
+  fnType(isTyping) {
+    if (this.user.id === '') {
+      this.router.navigate(['signup']);
+    } else if (this.selectedUser.id === '') {
+      alert(`Select a user to chat.`);
+    } else {
+      const data: any = {
+        fromUserId: this.user.id,
+        isType: isTyping,
+        toUserId: this.selectedUser.id,
+      };
+      /* calling method to send the messages */
+      this.socketService.startTyping(data);
+    }
   }
 
   sendMessage() {
-      const message = this.message;
-      if (message === '' || message === undefined || message === null) {
-        alert(`Message can't be empty.`);
-      } else if (this.user.id === '') {
-        this.router.navigate(['signup']);
-      } else if (this.selectedUser.id === '') {
-        alert(`Select a user to chat.`);
-      } else {
-        const data: any = {
-          fromUserId: this.user.id,
-          message: (message).trim(),
-          toUserId: this.selectedUser.id,
-        };
-        this.messages = [...this.messages, data];
-        /* calling method to send the messages */
-        this.socketService.sendMessage({
-          fromUserId: this.user.id,
-          message: (message).trim(),
-          toUserId: this.selectedUser.id
-        });
-        this.message = '';
-      }
+    const message = this.message;
+    if (message === '' || message === undefined || message === null) {
+      alert(`Message can't be empty.`);
+    } else if (this.user.id === '') {
+      this.router.navigate(['signup']);
+    } else if (this.selectedUser.id === '') {
+      alert(`Select a user to chat.`);
+    } else {
+      const data: any = {
+        fromUserId: this.user.id,
+        message: (message).trim(),
+        toUserId: this.selectedUser.id,
+      };
+      this.messages = [...this.messages, data];
+      /* calling method to send the messages */
+      this.socketService.sendMessage({
+        fromUserId: this.user.id,
+        message: (message).trim(),
+        toUserId: this.selectedUser.id
+      });
+      this.message = '';
+    }
 
   }
+
 
   ngOnChanges(changes: any) {
     /* Fetching selected users information from other component. */
@@ -70,7 +103,7 @@ export class ConversationComponent implements OnChanges {
       this.selectedUser = selectedUser;
     });
 
-    EmitterService.get(this.conversation).subscribe((data: any ) => {
+    EmitterService.get(this.conversation).subscribe((data: any) => {
       this.messages = data.messages;
     });
   }

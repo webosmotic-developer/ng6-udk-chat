@@ -131,6 +131,7 @@ body {
 }
 .chat .chat-message {
   padding: 10px;
+  position: relative;
 }
 .chat .chat-message textarea {
   width: 100%;
@@ -145,6 +146,11 @@ body {
   font-size: 16px;
   color: gray;
   cursor: pointer;
+}
+
+.chat-loader{
+ /* position: absolute;
+  top: -25px;*/
 }
 
 .online {

@@ -22,7 +22,11 @@
 <div class="chat h-100 w-100" *ngIf="selectedUser">
   <div class="chat-header clearfix">
     <div class="chat-about">
-      <div class="chat-with">{{selectedUser.username | titlecase}}</div>
+      <div class="chat-with">{{selectedUser.username | titlecase}}
+        <span class="text-success" *ngIf="isType">
+          <i class="chat-loader fa fa-circle-o-notch fa-spin fa-lg fa-fw"></i>
+        Typing...</span>
+      </div>
     </div>
 
   </div> <!-- end chat-header -->
@@ -49,10 +53,11 @@
   <div class="chat-message clearfix">
     <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"
               [(ngModel)]="message"
-    (focus)="fnType(true)"
-    (blur)="fnType(false)"></textarea>
+              (keypress)="fnType(true)"
+              (blur)="fnType(false)"
+              ></textarea>
 
-    <button class="btn btn-info pull-right" (click)="sendMessage()">Send</button>
+    <button class="btn btn-info pull-right btn-sm" (click)="sendMessage()">Send</button>
 
   </div> <!-- end chat-message -->
 </div>
