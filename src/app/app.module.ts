@@ -18,6 +18,7 @@ import { NavbarComponent } from './common/components/navbar/navbar.component';
 import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { OrderByPipe } from './common/pipes/order-by.pipe';
 import { ConversationComponent } from './components/conversation/conversation.component';
+import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
 
 export const APP_ID = 'my-app';
 
@@ -32,7 +33,8 @@ export const APP_ID = 'my-app';
     NavbarComponent,
     ChatListComponent,
     OrderByPipe,
-    ConversationComponent
+    ConversationComponent,
+    WhiteboardComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: APP_ID}),

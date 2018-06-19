@@ -1,0 +1,6 @@
+
+<div class="w-100 h-100" *ngIf="selectedUser">
+  <canvas class="whiteboard" (mouseup)="fnOnMouseUp($event)"
+        (mousedown)="fnOnMouseDown($event)"
+        (mousemove)="fnOnMouseMove($event)"></canvas>
+</div>
