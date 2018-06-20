@@ -3,6 +3,7 @@ import { AuthService } from '../../common/services/auth/auth.service';
 import { SocketService } from '../../common/services/socket/socket.service';
 import { ChatListComponent } from '../chat-list/chat-list.component';
 import {ConversationComponent} from '../conversation/conversation.component';
+import {EmitterService} from '../../common/services/emitter/emitter.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public broadcastedMsg: any;
   public broadcastMsg: string;
   public isShowBoard: boolean;
+  public selectedUser: any;
+  public messages: any[] = [];
   public conversation = 'CONVERSATION';
   public selectedUserInfo = 'SELECTEDUSERINFO';
 
@@ -47,9 +50,22 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       // this.overlayDisplay = false;
       this.chatListComponent.getChatList(chatListResponse, this.authUser.id);
     });
+    EmitterService.get(this.selectedUserInfo).subscribe((selectedUser: any) => {
+      this.selectedUser = selectedUser;
+    });
+
+    EmitterService.get(this.conversation).subscribe((data: any) => {
+      this.messages = data.messages;
+    });
+
     this.conversationComponent.listenForMessages(this.authUser.id);
     this.conversationComponent.listenTyping(this.authUser.id);
   }
+
+  fnShowBoard(showBoard) {
+    this.isShowBoard = !this.isShowBoard;
+  }
+
 
   fnBroadcast(msg?: string) {
 

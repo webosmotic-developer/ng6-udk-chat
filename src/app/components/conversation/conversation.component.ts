@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
 })
 export class ConversationComponent implements OnChanges {
   public message: string;
-  public messages: any[] = [];
-  public selectedUser: any;
   public user: any;
   public userId: any;
   public isType: boolean;
   public timeout: any;
   @Input() conversation: string;
+  @Input() messages: any;
   @Input() selectedUserInfo: string;
+  @Input() selectedUser: any;
   @Output() EventShowBoard: any = new EventEmitter<any>();
 
   constructor(private socketService: SocketService, private authService: AuthService, private router: Router) {
@@ -103,13 +103,8 @@ export class ConversationComponent implements OnChanges {
 
   ngOnChanges(changes: any) {
     /* Fetching selected users information from other component. */
-    EmitterService.get(this.selectedUserInfo).subscribe((selectedUser: any) => {
-      this.selectedUser = selectedUser;
-    });
 
-    EmitterService.get(this.conversation).subscribe((data: any) => {
-      this.messages = data.messages;
-    });
+
   }
 
 }

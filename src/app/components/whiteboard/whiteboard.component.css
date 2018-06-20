@@ -63,7 +63,7 @@ body {
   color: #434651;
 }
 .chat .chat-header {
-  padding: 10px;
+  padding: 8px;
   border-bottom: 2px solid white;
 }
 .chat .chat-header img {
@@ -201,4 +201,13 @@ li{
 
 .fa-10{
   font-size: 14px;
+}
+
+.btn-group button {
+  width: 32px;
+  height:36px;
+}
+
+.active {
+  border: 2px solid #17a2b8;
 }

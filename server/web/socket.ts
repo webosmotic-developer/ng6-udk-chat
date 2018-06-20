@@ -91,7 +91,6 @@ export class Socket {
           });
         } else {
           try {
-            console.log('---', data.toUserId);
             const [toSocketId, messageResult] = await Promise.all([
               this.queryHandler.getUserInfo({
                 userId: data.toUserId,
@@ -110,7 +109,6 @@ export class Socket {
       });
 
       socket.on(`drawing`, async (data) => {
-        console.log('drwaing data', data);
         if (data.fromUserId === '') {
           this.io.to(socket.id).emit(`new-drawing`, {
             error: true,
@@ -129,10 +127,39 @@ export class Socket {
                 socketId: true
               })
             ]);
-            console.log('--- toSocketId', toSocketId);
             this.io.to(toSocketId).emit(`new-drawing`, data);
           } catch (error) {
             this.io.to(socket.id).emit(`new-drawing`, {
+              error: true,
+              message: CONSTANTS.MESSAGE_STORE_ERROR
+            });
+          }
+        }
+      });
+
+
+      socket.on(`clear-whiteboard`, async (data) => {
+        if (data.fromUserId === '') {
+          this.io.to(socket.id).emit(`clear-whiteboard-response`, {
+            error: true,
+            message: CONSTANTS.SERVER_ERROR_MESSAGE
+          });
+        } else if (data.toUserId === '') {
+          this.io.to(socket.id).emit(`clear-whiteboard-response`, {
+            error: true,
+            message: CONSTANTS.SELECT_USER
+          });
+        } else {
+          try {
+            const [toSocketId] = await Promise.all([
+              this.queryHandler.getUserInfo({
+                userId: data.toUserId,
+                socketId: true
+              })
+            ]);
+            this.io.to(toSocketId).emit(`clear-whiteboard-response`, data);
+          } catch (error) {
+            this.io.to(socket.id).emit(`clear-whiteboard-response`, {
               error: true,
               message: CONSTANTS.MESSAGE_STORE_ERROR
             });

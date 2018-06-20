@@ -6,23 +6,48 @@
 </div>-->
 
 <div class="chat h-100 w-100" [hidden]="!selectedUser">
-  <div class="chat-header clearfix">
+  <div class="chat-header clearfix d-flex">
     <div class="chat-about">
       <div class="chat-with" *ngIf="selectedUser">{{selectedUser.username | titlecase}}
       </div>
     </div>
-
-    <i class="fa fa-commenting-o fa-lg pull-right m-2 c-pointer" (click)="fnShowChat()"></i>
-    <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
-      <div class="btn-group mr-2 btn-group-sm" role="group" aria-label="First group">
-        <button type="button" class="btn fa-2 active" (click)="fnSetlineWidth(2)"><i class="fa fa-ws fa-circle"></i>
-        </button>
-        <button type="button" class="btn fa-4" (click)="fnSetlineWidth(4)"><i class="fa fa-ws  fa-circle"></i></button>
-        <button type="button" class="btn fa-10" (click)="fnSetlineWidth(10)"><i class="fa fa-ws  fa-circle"></i>
-        </button>
-      </div>
+    <div class="ml-auto">
+      <ul class="toolbar nav">
+        <li class="nav-item active">
+          <i class="fa fa-pencil m-2" (click)="fnPen($event)"> </i>
+        </li>
+        <li class="nav-item">
+          <i class="fa fa-eraser m-2" (click)="fnErase($event)"> </i>
+        </li>
+        <li class="nav-item">
+          <input class="m-1" type="color" id="colorpicker" (change)="onColorUpdate($event)">
+        </li>
+        <li class="nav-item">
+          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2 btn-group-sm" role="group" aria-label="First group">
+              <button type="button" class="btn fa-2 active" (click)="fnSetlineWidth($event,2)">
+                <i class="fa fa-ws fa-circle"></i>
+              </button>
+              <button type="button" class="btn fa-4" (click)="fnSetlineWidth($event, 4)">
+                <i class="fa fa-ws fa-circle"></i>
+              </button>
+              <button type="button" class="btn fa-10" (click)="fnSetlineWidth($event, 10)">
+                <i class="fa fa-ws fa-circle">
+                </i>
+              </button>
+            </div>
+          </div>
+        </li>
+        <li class="nav-item" >
+          <i class="fa fa-times-circle m-2" (click)="fnClear($event)"> </i>
+        </li>
+        <li class="nav-item">
+          <i class="fa fa-commenting-o fa-lg pull-right m-2 c-pointer" (click)="fnShowChat()"></i>
+        </li>
+      </ul>
     </div>
-    <input class="pull-right m-1" type="color" (change)="onColorUpdate($event)">
+
+
 
   </div> <!-- end chat-header -->
 
