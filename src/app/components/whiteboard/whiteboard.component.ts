@@ -22,7 +22,7 @@ export class WhiteboardComponent implements OnInit, OnChanges {
   @Input() selectedUser: any;
   @Output() EventShowChat: any = new EventEmitter<any>();
 
-  constructor(private socketService: SocketService, private authService: AuthService, private renderer: Renderer) {
+  constructor(private socketService: SocketService, private authService: AuthService) {
     this.user = authService.getAuthUser();
     this.drawing = false;
     this.lineWidth = 2;

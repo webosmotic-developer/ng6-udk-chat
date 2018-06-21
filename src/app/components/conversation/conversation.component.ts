@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { EmitterService } from '../../common/services/emitter/emitter.service';
-import { SocketService } from '../../common/services/socket/socket.service';
-import { AuthService } from '../../common/services/auth/auth.service';
-import { Router } from '@angular/router';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {EmitterService} from '../../common/services/emitter/emitter.service';
+import {SocketService} from '../../common/services/socket/socket.service';
+import {AuthService} from '../../common/services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-conversation',
@@ -29,9 +29,12 @@ export class ConversationComponent implements OnChanges {
   listenForMessages(userId: string): void {
     this.userId = userId;
     this.socketService.receiveMessages().subscribe((message: any) => {
-      /* subscribing for messages statrts */
+      /* subscribing for messages starts */
       if (this.selectedUser !== null && this.selectedUser.id === message.fromUserId) {
         this.messages = [...this.messages, message];
+        setTimeout(() => {
+          document.querySelector(`.chat-history`).scrollTop = document.querySelector(`.chat-history`).scrollHeight;
+        }, 100);
       }
     });
   }
@@ -49,7 +52,7 @@ export class ConversationComponent implements OnChanges {
           }
           this.timeout = setTimeout(() => {
             this.isType = false;
-          }, 3000);
+          }, 5000);
         }
       }
     });
@@ -71,28 +74,33 @@ export class ConversationComponent implements OnChanges {
     }
   }
 
-  sendMessage() {
-    const message = this.message;
-    if (message === '' || message === undefined || message === null) {
-      alert(`Message can't be empty.`);
-    } else if (this.user.id === '') {
-      this.router.navigate(['signup']);
-    } else if (this.selectedUser.id === '') {
-      alert(`Select a user to chat.`);
-    } else {
-      const data: any = {
-        fromUserId: this.user.id,
-        message: (message).trim(),
-        toUserId: this.selectedUser.id,
-      };
-      this.messages = [...this.messages, data];
-      /* calling method to send the messages */
-      this.socketService.sendMessage({
-        fromUserId: this.user.id,
-        message: (message).trim(),
-        toUserId: this.selectedUser.id
-      });
-      this.message = '';
+  sendMessage(event) {
+    if (event.type === 'click' || event.keyCode === 13) {
+      const message = this.message;
+      if (message === '' || message === undefined || message === null) {
+        alert(`Message can't be empty.`);
+      } else if (this.user.id === '') {
+        this.router.navigate(['signup']);
+      } else if (this.selectedUser.id === '') {
+        alert(`Select a user to chat.`);
+      } else {
+        const data: any = {
+          fromUserId: this.user.id,
+          message: (message).trim(),
+          toUserId: this.selectedUser.id,
+        };
+        this.messages = [...this.messages, data];
+        /* calling method to send the messages */
+        this.socketService.sendMessage({
+          fromUserId: this.user.id,
+          message: (message).trim(),
+          toUserId: this.selectedUser.id
+        });
+        this.message = '';
+        setTimeout(() => {
+          document.querySelector(`.chat-history`).scrollTop = document.querySelector(`.chat-history`).scrollHeight;
+        }, 100);
+      }
     }
 
   }

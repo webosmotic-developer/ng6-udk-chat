@@ -2,9 +2,6 @@
   <div class="chat-header clearfix">
     <div class="chat-about">
       <div class="chat-with">{{selectedUser.username | titlecase}}
-        <span class="text-success" *ngIf="isType">
-          <i class="chat-loader fa fa-circle-o-notch fa-spin fa-lg fa-fw"></i>
-        Typing...</span>
       </div>
     </div>
 
@@ -29,6 +26,12 @@
         </div>
       </li>
     </ul>
+
+    <span class="text-success" *ngIf="isType && selectedUser.id === messages[0].fromUserId">
+        <i class="chat-loader fa fa-circle-o-notch fa-spin fa-lg fa-fw"></i>
+        {{selectedUser.username | titlecase}} is typing...
+    </span>
+
   </div> <!-- end chat-history -->
 
   <div class="chat-message clearfix">
@@ -36,9 +39,10 @@
               [(ngModel)]="message"
               (keypress)="fnType(true)"
               (blur)="fnType(false)"
+              (keydown)="sendMessage($event)"
     ></textarea>
 
-    <button class="btn btn-info pull-right btn-sm" (click)="sendMessage()">Send</button>
+    <button class="btn btn-info pull-right btn-sm" (click)="sendMessage($event)">Send</button>
 
   </div> <!-- end chat-message -->
 </div>
