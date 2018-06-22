@@ -51,6 +51,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     });
     EmitterService.get(this.selectedUserInfo).subscribe((selectedUser: any) => {
       this.selectedUser = selectedUser;
+      // move scroll to bottom of the chat list
+      setTimeout(() => {
+        document.querySelector(`.chat-history`).scrollTop = document.querySelector(`.chat-history`).scrollHeight;
+      }, 100);
     });
 
     EmitterService.get(this.conversation).subscribe((data: any) => {
