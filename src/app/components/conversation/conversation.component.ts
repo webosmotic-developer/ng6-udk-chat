@@ -1,30 +1,47 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
-import {EmitterService} from '../../common/services/emitter/emitter.service';
+import {
+  AfterContentChecked,
+   Component, ElementRef, EventEmitter, Input, OnChanges, Output, ViewChild,
+} from '@angular/core';
 import {SocketService} from '../../common/services/socket/socket.service';
 import {AuthService} from '../../common/services/auth/auth.service';
 import {Router} from '@angular/router';
+import {EmojiInputComponent} from 'ng-emoji-picker';
 
 @Component({
   selector: 'app-conversation',
   templateUrl: './conversation.component.html',
-  styleUrls: ['./conversation.component.css']
+  styleUrls: ['./conversation.component.css'],
 })
-export class ConversationComponent implements OnChanges {
-  public message: string;
+export class ConversationComponent implements OnChanges, AfterContentChecked {
+  public message: any;
   public user: any;
   public userId: any;
   public isType: boolean;
   public timeout: any;
+  @ViewChild(EmojiInputComponent) public textarea: ElementRef;
   @Input() conversation: string;
   @Input() messages: any;
   @Input() selectedUserInfo: string;
   @Input() selectedUser: any;
   @Output() EventShowBoard: any = new EventEmitter<any>();
+  openPopup: Function;
+
+  setPopupAction(fn: any) {
+    this.openPopup = fn;
+  }
 
   constructor(private socketService: SocketService, private authService: AuthService, private router: Router) {
     this.user = authService.getAuthUser();
+    this.message = '';
   }
 
+
+  ngAfterContentChecked() {
+    if (this.textarea) {
+      this.textarea['textareaEl'].nativeElement.placeholder = 'Type your message';
+    }
+
+  }
 
   listenForMessages(userId: string): void {
     this.userId = userId;

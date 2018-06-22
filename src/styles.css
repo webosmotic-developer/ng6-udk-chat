@@ -20,3 +20,13 @@ html, body {
 .c-pointer{
   cursor: pointer;
 }
+
+.chat .chat-message emoji-input textarea {
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  font: 14px/22px "Lato", Arial, sans-serif;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  resize: none;
+}

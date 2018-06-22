@@ -19,6 +19,7 @@ import { ChatListComponent } from './components/chat-list/chat-list.component';
 import { OrderByPipe } from './common/pipes/order-by.pipe';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
+import {EmojiPickerModule} from 'ng-emoji-picker';
 
 export const APP_ID = 'my-app';
 
@@ -40,7 +41,8 @@ export const APP_ID = 'my-app';
     BrowserModule.withServerTransition({appId: APP_ID}),
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    EmojiPickerModule
   ],
   providers: [
     AuthService,

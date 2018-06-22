@@ -35,13 +35,21 @@
   </div> <!-- end chat-history -->
 
   <div class="chat-message clearfix">
-    <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"
-              [(ngModel)]="message"
-              (keypress)="fnType(true)"
-              (blur)="fnType(false)"
-              (keydown)="sendMessage($event)"
-    ></textarea>
 
+    <emoji-input
+      [(model)]="message"
+      [textArea]="{rows: 3}"
+      [popupAnchor]="'bottom'"
+      (click)="openPopup(false)"
+      (setPopupAction)="setPopupAction($event)"
+      (keypress)="fnType(true)"
+      (blur)="fnType(false)"
+      (keydown)="sendMessage($event)"
+    >
+    </emoji-input>
+    <span class="smiley" (click)="openPopup(); fnType(true)" (blur)="fnType(false)">
+     <i class="fa fa-smile-o"></i>
+    </span>
     <button class="btn btn-info pull-right btn-sm" (click)="sendMessage($event)">Send</button>
 
   </div> <!-- end chat-message -->
