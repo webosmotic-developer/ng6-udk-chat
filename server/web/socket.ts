@@ -56,14 +56,14 @@ export class Socket {
         }
       });
 
-      socket.on(`broadcast-test`, async (data) => {
+      socket.on(`message-broadcast`, async (data) => {
         try {
-          socket.broadcast.emit(`test-response`, {
+          socket.broadcast.emit(`message-broadcast-response`, {
             error: false,
             data: data.msg
           });
         } catch (error) {
-          socket.broadcast.emit(`test-response`, {
+          socket.broadcast.emit(`message-broadcast-response`, {
             error: true,
           });
         }

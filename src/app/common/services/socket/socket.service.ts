@@ -53,21 +53,22 @@ export class SocketService {
     });
   }
 
-  /*
-    broadcastMsg(msg) {
-      this.socket.emit('broadcast-test', { desc: msg });
-    }
-  */
 
   /*
  * Method to receive chat-list-response event.
  */
-  broadcastMsg(msg: string = null): Observable<any> {
+  broadcastMsg(msg: string) {
     if (msg !== null) {
-      this.socket.emit('broadcast-test', { msg: msg });
+      this.socket.emit('message-broadcast', { msg: msg });
     }
+  }
+
+  /*
+	* Method to receive broadcast-response event.
+	*/
+  receiveBroadcast(): Observable<any> {
     return new Observable(observer => {
-      this.socket.on('test-response', (data: any) => {
+      this.socket.on('message-broadcast-response', (data: any) => {
         observer.next(data);
       });
       return () => {

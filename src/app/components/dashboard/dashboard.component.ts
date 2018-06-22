@@ -12,7 +12,6 @@ import {EmitterService} from '../../common/services/emitter/emitter.service';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   public authUser: any;
-  public broadcastedMsg: any;
   public broadcastMsg: string;
   public isShowBoard: boolean;
   public selectedUser: any;
@@ -34,13 +33,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     /* making socket connection by passing UserId. */
     const socket: any = this.socketService.connectSocket(this.authUser.id);
-    // calling getChatList() service method to get the chat list.
-    /*  this.socketService.getChatList(this.authUser.id)
-        .then((res) => {
-          this.userArr = res;
-        }).catch((error: any) => {
-      });*/
 
+  }
+
+  listenBroadcast(): void {
+    this.socketService.receiveBroadcast().subscribe((broadcastResponse: any) => {
+      alert(broadcastResponse.data);
+    });
   }
 
   ngAfterViewInit() {
@@ -60,6 +59,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     this.conversationComponent.listenForMessages(this.authUser.id);
     this.conversationComponent.listenTyping(this.authUser.id);
+    this.listenBroadcast();
   }
 
   fnShowBoard(showBoard) {
@@ -67,17 +67,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
 
-  fnBroadcast(msg?: string) {
-
-    if (msg === '' || msg === undefined || msg === null) {
-      alert('There is nothing to broadcast.');
-    } else {
-
-      this.socketService.broadcastMsg(msg).subscribe((BroadcastResponse: any) => {
-        alert(BroadcastResponse.data);
-      });
-      /* this.broadcastMsg = '';
-       this.broadcastedMsg = this.socketService.receiveMessages();*/
+  fnBroadcast(event) {
+    if (event.type === 'click' || event.keyCode === 13) {
+      const msg = this.broadcastMsg;
+      if (msg === '' || msg === undefined || msg === null) {
+        alert('There is nothing to broadcast.');
+      } else {
+        this.socketService.broadcastMsg(msg);
+        this.broadcastMsg = '';
+      }
     }
   }
 }
