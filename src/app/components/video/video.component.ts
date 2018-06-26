@@ -2,8 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@an
 import {SocketService} from '../../common/services/socket/socket.service';
 import {AuthService} from '../../common/services/auth/auth.service';
 import {Router} from '@angular/router';
-import {ConfirmModalComponent} from '../../common/modals/confirm-modal/confirm-modal.component';
-import {BsModalService} from 'ngx-bootstrap/modal';
+
 
 
 @Component({
@@ -41,8 +40,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
   };
 
 
-  constructor(private socketService: SocketService, private authService: AuthService, private router: Router,
-              private _bsModalService: BsModalService) {
+  constructor(private socketService: SocketService, private authService: AuthService, private router: Router) {
     this.user = authService.getAuthUser();
     this.chatMessage = '';
   }
@@ -74,17 +72,12 @@ export class VideoComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.socketService.receiveVideoChatRespone().subscribe((msg: any) => {
       console.log('recieved video message', msg);
-      const modal = this._bsModalService.show(ConfirmModalComponent, {'class': 'modal-md'});
-      (<ConfirmModalComponent>modal.content).showConfirmationModal(
-        'Invitation for video call',
-        'Please accept or reject the call'
-      );
-      (<ConfirmModalComponent>modal.content).onClose.subscribe(result => {
-        if (result) {
-          this.gotMessageFromServer(msg);
-        }
-      });
-
+      const r = confirm("You are receiving a video call ..Please accept or decline it");
+      if (r === true) {
+        this.gotMessageFromServer(msg);
+      } else {
+        console.log("cancel")
+      }
 
     });
 
@@ -127,6 +120,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
 
   start = (isCaller) => {
     document.getElementById('startButton').setAttribute('value', 'End');
+
     this.peerConnection = new RTCPeerConnection(this.peerConnectionConfig);
     this.peerConnection.onicecandidate = this.gotIceCandidate;
     this.peerConnection.onaddstream = this.gotRemoteStream;
