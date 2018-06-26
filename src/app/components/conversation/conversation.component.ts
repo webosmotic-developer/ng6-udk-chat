@@ -122,8 +122,8 @@ export class ConversationComponent implements OnChanges, AfterContentChecked {
 
   }
 
-  fnShowBoard() {
-    this.EventShowBoard.next();
+  fnShowBoard(type: string) {
+    this.EventShowBoard.next(type);
   }
 
   ngOnChanges(changes: any) {

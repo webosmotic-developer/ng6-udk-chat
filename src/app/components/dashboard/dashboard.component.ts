@@ -13,7 +13,7 @@ import {EmitterService} from '../../common/services/emitter/emitter.service';
 export class DashboardComponent implements OnInit, AfterViewInit {
   public authUser: any;
   public broadcastMsg: string;
-  public isShowBoard: boolean;
+  public isShowBoard: string;
   public selectedUser: any;
   public messages: any[] = [];
   public conversation = 'CONVERSATION';
@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private authService: AuthService,
     private socketService: SocketService) {
     this.authUser = authService.getAuthUser();
-    this.isShowBoard = false;
+    this.isShowBoard = 'chat';
   }
 
   ngOnInit() {
@@ -66,8 +66,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.listenBroadcast();
   }
 
-  fnShowBoard(showBoard) {
-    this.isShowBoard = !this.isShowBoard;
+  fnShowBoard(type) {
+    this.isShowBoard = type;
   }
 
 

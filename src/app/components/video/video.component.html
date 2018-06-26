@@ -1,0 +1,25 @@
+<div class="chat h-100 w-100" *ngIf="selectedUser">
+  <div class="chat-header clearfix">
+    <div class="chat-about">
+      <div class="chat-with">{{selectedUser.username | titlecase}}
+      </div>
+    </div>
+
+    <i class="fa fa-pencil-square-o fa-lg pull-right m-2 c-pointer" (click)="fnShowChat('whiteboard')"></i>
+    <i class="fa fa-commenting-o fa-lg pull-right m-2 c-pointer" (click)="fnShowChat('chat')"></i>
+
+  </div>
+
+  <div id="videoContainer">
+    <div id="localVideoController">
+      <video id="localVideo" autoplay></video>
+      <div id="control">
+        <input type="button" id="startButton" value="Call" (click)="start(true)">
+      </div>
+    </div>
+    <div id="remoteVideoContainer">
+      <video id="remoteVideo" autoplay></video>
+    </div>
+  </div>
+</div>
+

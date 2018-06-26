@@ -20,6 +20,9 @@ import { OrderByPipe } from './common/pipes/order-by.pipe';
 import { ConversationComponent } from './components/conversation/conversation.component';
 import { WhiteboardComponent } from './components/whiteboard/whiteboard.component';
 import {EmojiPickerModule} from 'ng-emoji-picker';
+import { VideoComponent } from './components/video/video.component';
+import {ConfirmModalComponent} from './common/modals/confirm-modal/confirm-modal.component';
+import {ModalModule} from 'ngx-bootstrap';
 
 export const APP_ID = 'my-app';
 
@@ -35,14 +38,20 @@ export const APP_ID = 'my-app';
     ChatListComponent,
     OrderByPipe,
     ConversationComponent,
-    WhiteboardComponent
+    WhiteboardComponent,
+    VideoComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: APP_ID}),
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    EmojiPickerModule
+    EmojiPickerModule,
+    ModalModule.forRoot(),
+  ],
+  entryComponents: [
+    ConfirmModalComponent
   ],
   providers: [
     AuthService,

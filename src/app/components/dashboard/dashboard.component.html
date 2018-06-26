@@ -12,10 +12,11 @@
     </div>
     <div class="col-8">
       <app-conversation [conversation]="conversation" [selectedUserInfo]="selectedUserInfo"
-                        (EventShowBoard)="fnShowBoard()" *ngIf="!isShowBoard"
+                        (EventShowBoard)="fnShowBoard($event)" *ngIf="isShowBoard === 'chat'"
                         [selectedUser]="selectedUser" [messages]="messages"></app-conversation>
-      <app-whiteboard *ngIf="isShowBoard" [selectedUserInfo]="selectedUserInfo" [selectedUser]="selectedUser"
-                      (EventShowChat)="fnShowBoard()"></app-whiteboard>
+      <app-whiteboard *ngIf="isShowBoard === 'whiteboard'" [selectedUserInfo]="selectedUserInfo" [selectedUser]="selectedUser"
+                      (EventShowChat)="fnShowBoard($event)"></app-whiteboard>
+      <app-video [selectedUser]="selectedUser" *ngIf="isShowBoard === 'video'" (EventShowVideo)="fnShowBoard($event)"></app-video>
     </div>
   </div>
 </div>

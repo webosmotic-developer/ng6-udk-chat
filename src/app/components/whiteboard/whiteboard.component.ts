@@ -32,8 +32,8 @@ export class WhiteboardComponent implements OnInit, OnChanges {
     };
   }
 
-  fnShowChat() {
-    this.EventShowChat.next();
+  fnShowChat(type) {
+    this.EventShowChat.next(type);
   }
 
   ngOnInit() {

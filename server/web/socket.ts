@@ -235,6 +235,19 @@ export class Socket {
         });
 
       });
+
+      socket.on('start-video-chat', async(data) => {
+        try {
+          const [toSocketId] = await Promise.all([
+            this.queryHandler.getUserInfo({
+              userId: data.toUserId,
+              socketId: true
+            })
+          ]);
+          this.io.to(toSocketId).emit(`video-chat-response`, data);
+        } catch (error) {
+        }
+      });
     });
 
   }

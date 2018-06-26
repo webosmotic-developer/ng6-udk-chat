@@ -30,3 +30,31 @@ html, body {
   border-radius: 5px;
   resize: none;
 }
+
+
+#videoContainer {
+  width: 100%;
+  position: relative;
+}
+#localVideo, #remoteVideo {
+  background: silver;
+  vertical-align: text-top;
+}
+#localVideoController {
+  width: 25%;
+  margin: 0% 1% 1% 1%;
+  float: left;
+}
+#localVideo {
+  position: relative;
+  width: 100%;
+}
+#remoteVideoContainer {
+  width: 40%;
+  margin: 0% 1% 1% 1%;
+  float: left;
+}
+#remoteVideo {
+  position: relative;
+  width: 100%;
+}

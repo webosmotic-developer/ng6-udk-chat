@@ -152,4 +152,22 @@ export class SocketService {
     });
   }
 
+  videoChat(data: any): void {
+    this.socket.emit('start-video-chat', data);
+  }
+
+  /*
+   * Method to receive broadcast-response event.
+   */
+  receiveVideoChatRespone(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('video-chat-response', (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
 }
