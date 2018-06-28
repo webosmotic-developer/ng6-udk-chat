@@ -2,7 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@an
 import {SocketService} from '../../common/services/socket/socket.service';
 import {AuthService} from '../../common/services/auth/auth.service';
 import {Router} from '@angular/router';
-
+import * as _ from 'lodash';
 
 
 @Component({
@@ -13,166 +13,203 @@ import {Router} from '@angular/router';
 export class VideoComponent implements OnInit, AfterViewInit {
 
   public startButton = document.getElementById('startButton');
-  public stopButton = document.getElementById('stopButton');
-  chatTextField = document.getElementById('chatTextField');
   public localVideo;
   public remoteVideo;
+  public isCaller;
   public user;
   public chatMessage;
   public localStream: MediaStream;
+  public remoteStream: MediaStream;
   @Output() EventShowVideo: any = new EventEmitter<any>();
-  public peerConnection;
+  public rtcPeerConnection;
   navigatorObject = <any>navigator;
   @Input() selectedUser: any;
-  public peerConnectionConfig = {
-    'iceServers': [
-      {
-        'url': 'stun:stun.l.google.com:19302',
-      },
-      {
-        'url': 'stun:stun.services.mozilla.com',
-      },
-      {
-        'url': 'turn:192.158.29.39:3478?transport=tcp',
-        'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-        'username': '28224511:1379330808'
-      }]
-  };
+  iceServers: any;
+  public isCallStarted: boolean;
 
 
   constructor(private socketService: SocketService, private authService: AuthService, private router: Router) {
     this.user = authService.getAuthUser();
     this.chatMessage = '';
+    this.isCallStarted = true;
+    this.iceServers = {
+      'iceServers': [
+        {
+          'url': 'stun:stun.services.mozilla.com'
+        },
+        {
+          'url': 'stun:stun.l.google.com:19302'
+        }
+      ]
+    };
   }
 
   ngOnInit() {
-    this.navigatorObject.getUserMedia = this.navigatorObject.getUserMedia ||
-      this.navigatorObject.mozGetUserMedia ||
-      this.navigatorObject.webkitGetUserMedia;
-
-
-    this.localVideo = document.getElementById('localVideo');
-    this.remoteVideo = document.getElementById('remoteVideo');
 
     const constraints = {
-      video: false,
+      video: true,
       audio: true,
     };
-    if (this.navigatorObject.getUserMedia) {
-      this.navigatorObject.getUserMedia(constraints,
-        this.getUserMediaSuccess,
-        this.getUserMediaError
-      );
-    } else {
-      alert('Your browser does not support getUserMedia API');
-    }
 
-  }
-
-  ngAfterViewInit() {
-    this.socketService.receiveVideoChatRespone().subscribe((msg: any) => {
-      console.log('recieved video message', msg);
-      const r = confirm("You are receiving a video call ..Please accept or decline it");
-      if (r === true) {
-        this.gotMessageFromServer(msg);
-      } else {
-        console.log("cancel")
-      }
-
+    navigator.mediaDevices.getUserMedia(constraints).then( (stream) => {
+        this.getUserMediaSuccess(stream);
     });
 
   }
-
 
   getUserMediaSuccess = (stream) => {
     console.log('stream', stream);
     this.localStream = stream;
     this.localVideo.src = window.URL.createObjectURL(stream);
+    if (stream.getAudioTracks().length > 0) {
+      console.log("in")
+    }
   }
 
   getUserMediaError = (error) => {
     console.log('--- error', error);
   }
 
+  ngAfterViewInit() {
 
-  gotMessageFromServer = (message) => {
-    console.log('From server', message);
-    if (!this.peerConnection) {
-      this.start(false);
-    }
-    const signal = JSON.parse(message.message);
-    console.log('signal', signal);
-    if (signal.sdp) {
-      console.log('in sdp');
-      this.peerConnection.setRemoteDescription(new RTCSessionDescription(signal.sdp), () => {
-          this.peerConnection.createAnswer(this.gotDescription, this.createAnswerError);
-          console.log('answer created');
-        },
-        function (error) {
-          console.log('setRemoteDescription error', error);
-        });
-    } else if (signal.ice) {
-      this.peerConnection.addIceCandidate(new RTCIceCandidate(signal.ice));
-      console.log('ice candidate added');
-    }
+    this.localVideo = document.getElementById('localVideo');
+    this.remoteVideo = document.getElementById('remoteVideo');
+
+    this.socketService.receiveOfferResponse().subscribe((data: any) => {
+      if (!this.rtcPeerConnection) {
+        this.start(false);
+      }
+      this.rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(data.sdp));
+      this.rtcPeerConnection.createAnswer()
+        .then(desc => this.setLocalAndAnswer(desc))
+        .catch(e => console.log(e));
+
+    });
+
+    this.socketService.receiveAnswerResponse().subscribe((data: any) => {
+      this.rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(data.sdp));
+    });
+
+    this.socketService.receiveHangupResponse().subscribe((data: any) => {
+      document.getElementById('startButton').setAttribute('value', 'Start Call');
+      this.isCallStarted = true;
+      this.closeVideoCall();
+
+    });
+
+    this.socketService.receiveCandidateResponse().subscribe((data: any) => {
+      const candidate = new RTCIceCandidate({
+        sdpMLineIndex: data.label,
+        candidate: data.candidate
+      });
+      this.rtcPeerConnection.addIceCandidate(candidate);
+    });
   }
-
 
   start = (isCaller) => {
-    document.getElementById('startButton').setAttribute('value', 'End');
-
-    this.peerConnection = new RTCPeerConnection(this.peerConnectionConfig);
-    this.peerConnection.onicecandidate = this.gotIceCandidate;
-    this.peerConnection.onaddstream = this.gotRemoteStream;
-    this.peerConnection.addStream(this.localStream);
+    document.getElementById('startButton').setAttribute('value', 'Hang Up');
+    this.isCallStarted = false;
+    this.createPeerConnection();
+    const offerOptions = {
+      offerToReceiveAudio: 1,
+      offerToReceiveVideo: 1,
+    }
     if (isCaller) {
-      this.peerConnection.createOffer(this.gotDescription, this.createOfferError);
-      console.log('offer created');
+      this.rtcPeerConnection.createOffer(offerOptions)
+        .then(desc => this.setLocalAndOffer(desc))
+        .catch(e => console.log(e));
     }
   }
 
-  gotDescription = (description) => {
-    this.peerConnection.setLocalDescription(description, () => {
-        const data = {
-          fromUserId: this.user.id,
-          message: JSON.stringify({'sdp': description}),
-          toUserId: this.selectedUser.id
-        };
-        this.socketService.videoChat(data);
-      },
-      function () {
-        console.log('set description error');
-      });
+  createPeerConnection = () => {
+    this.rtcPeerConnection = new RTCPeerConnection(this.iceServers);
+    this.rtcPeerConnection.onicecandidate = this.onIceCandidate;
+    this.rtcPeerConnection.onaddstream = this.onAddStream;
+    this.rtcPeerConnection.addStream(this.localStream);
   }
 
-  gotIceCandidate = (event) => {
-    if (event.candidate != null) {
+  onAddStream = (event) => {
+    this.remoteVideo.src = URL.createObjectURL(event.stream);
+    this.remoteStream = event.stream;
+    if (this.remoteStream.getAudioTracks().length > 0) {
+      console.log('Remote user is sending Audio');
+    } else {
+      console.log('Remote user is not sending Audio');
+    }
+  }
+
+  setLocalAndOffer = (sessionDescription) => {
+    this.rtcPeerConnection.setLocalDescription(sessionDescription);
+    const data = {
+      type: 'offer',
+      fromUserId: this.user.id,
+      sdp: sessionDescription,
+      toUserId: this.selectedUser.id
+    };
+
+    this.socketService.startOffer(data);
+  }
+
+  setLocalAndAnswer = (sessionDescription) => {
+    this.rtcPeerConnection.setLocalDescription(sessionDescription);
+    const data = {
+      type: 'answer',
+      fromUserId: this.user.id,
+      sdp: sessionDescription,
+      toUserId: this.selectedUser.id
+    };
+
+    this.socketService.startAnswer(data);
+
+  }
+
+  onIceCandidate = (event) => {
+    if (event.candidate) {
       const data = {
+        type: 'candidate',
+        label: event.candidate.sdpMLineIndex,
+        id: event.candidate.sdpMid,
+        candidate: event.candidate.candidate,
+        toUserId: this.selectedUser.id,
         fromUserId: this.user.id,
-        message: JSON.stringify({'ice': event.candidate}),
-        toUserId: this.selectedUser.id
+
       };
-      this.socketService.videoChat(data);
+      this.socketService.startCandidate(data);
     }
-  }
-
-  gotRemoteStream = (event) => {
-    console.log('got remote stream');
-    console.log('event', event);
-    this.remoteVideo.src = window.URL.createObjectURL(event.stream);
-  }
-
-  createOfferError = (error) => {
-    console.log('offer error  ', error);
-  }
-
-  createAnswerError = (error) => {
-    console.log('createAnswerError', error);
   }
 
   fnShowChat(type: string) {
     this.EventShowVideo.next(type);
   }
 
+  hangUpCall = () => {
+  this.closeVideoCall();
+    const data = {
+      type: 'hang-up',
+      toUserId: this.selectedUser.id,
+      fromUserId: this.user.id,
+    };
+    this.isCallStarted = true;
+    document.getElementById('startButton').setAttribute('value', 'Start Call');
+    this.socketService.hangUp(data);
+}
+
+
+  closeVideoCall = () => {
+
+    if (this.rtcPeerConnection) {
+      if (this.remoteVideo.src) {
+        this.remoteVideo.src = null;
+      }
+
+      if (this.localVideo.src) {
+        this.localVideo.src = null;
+      }
+
+
+      this.rtcPeerConnection.close();
+      this.rtcPeerConnection = null;
+    }
+  }
 
 }

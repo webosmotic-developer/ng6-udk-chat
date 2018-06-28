@@ -170,4 +170,67 @@ export class SocketService {
     });
   }
 
+  startOffer(data): void {
+    this.socket.emit('offer', data);
+  }
+
+  startAnswer(data): void {
+    this.socket.emit('answer', data);
+  }
+
+  startCandidate(data): void {
+    this.socket.emit('candidate', data);
+  }
+
+  hangUp(data): void {
+    this.socket.emit('hang-up', data);
+  }
+
+  /*
+   * Method to receive broadcast-response event.
+   */
+  receiveOfferResponse(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('offer-response', (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+  receiveAnswerResponse(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('answer-response', (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+  receiveCandidateResponse(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('candidate-response', (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
+  receiveHangupResponse(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('hang-up-response', (data: any) => {
+        observer.next(data);
+      });
+      return () => {
+        this.socket.disconnect();
+      };
+    });
+  }
+
 }

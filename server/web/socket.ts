@@ -248,6 +248,58 @@ export class Socket {
         } catch (error) {
         }
       });
+
+      socket.on('offer', async(data) => {
+        try {
+          const [toSocketId] = await Promise.all([
+            this.queryHandler.getUserInfo({
+              userId: data.toUserId,
+              socketId: true
+            })
+          ]);
+          this.io.to(toSocketId).emit(`offer-response`, data);
+        } catch (error) {
+        }
+      });
+
+      socket.on('answer', async(data) => {
+        try {
+          const [toSocketId] = await Promise.all([
+            this.queryHandler.getUserInfo({
+              userId: data.toUserId,
+              socketId: true
+            })
+          ]);
+          this.io.to(toSocketId).emit(`answer-response`, data);
+        } catch (error) {
+        }
+      });
+
+      socket.on('candidate', async(data) => {
+        try {
+          const [toSocketId] = await Promise.all([
+            this.queryHandler.getUserInfo({
+              userId: data.toUserId,
+              socketId: true
+            })
+          ]);
+          this.io.to(toSocketId).emit(`candidate-response`, data);
+        } catch (error) {
+        }
+      });
+
+      socket.on('hang-up', async(data) => {
+        try {
+          const [toSocketId] = await Promise.all([
+            this.queryHandler.getUserInfo({
+              userId: data.toUserId,
+              socketId: true
+            })
+          ]);
+          this.io.to(toSocketId).emit(`hang-up-response`, data);
+        } catch (error) {
+        }
+      });
     });
 
   }
