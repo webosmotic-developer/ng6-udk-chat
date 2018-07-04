@@ -20,7 +20,8 @@
   </div>
 
   <div id="control">
-    <input type="button" id="startButton" value="Start Call" (click)="isCallStarted ? start(true) : hangUpCall()">
+    <input type="button" id="startButton" [value]="isHangUp ? 'Start Call' : 'Hang Up'"
+           (click)="isHangUp ? start(true) : hangUpCall()">
   </div>
 
 </div>

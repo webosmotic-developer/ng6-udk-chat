@@ -1,7 +1,7 @@
-import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {SocketService} from '../../common/services/socket/socket.service';
-import {AuthService} from '../../common/services/auth/auth.service';
-import {Router} from '@angular/router';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { SocketService } from '../../common/services/socket/socket.service';
+import { AuthService } from '../../common/services/auth/auth.service';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
 
 
@@ -12,26 +12,23 @@ import * as _ from 'lodash';
 })
 export class VideoComponent implements OnInit, AfterViewInit {
 
-  public startButton = document.getElementById('startButton');
   public localVideo;
   public remoteVideo;
-  public isCaller;
   public user;
   public chatMessage;
   public localStream: MediaStream;
   public remoteStream: MediaStream;
   @Output() EventShowVideo: any = new EventEmitter<any>();
   public rtcPeerConnection;
-  navigatorObject = <any>navigator;
   @Input() selectedUser: any;
   iceServers: any;
-  public isCallStarted: boolean;
+  public isHangUp: boolean;
 
 
   constructor(private socketService: SocketService, private authService: AuthService, private router: Router) {
     this.user = authService.getAuthUser();
     this.chatMessage = '';
-    this.isCallStarted = true;
+    this.isHangUp = true;
     this.iceServers = {
       'iceServers': [
         {
@@ -45,16 +42,14 @@ export class VideoComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-
     const constraints = {
-      video: true,
+      video: false,
       audio: true,
     };
 
-    navigator.mediaDevices.getUserMedia(constraints).then( (stream) => {
-        this.getUserMediaSuccess(stream);
+    navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
+      this.getUserMediaSuccess(stream);
     });
-
   }
 
   getUserMediaSuccess = (stream) => {
@@ -62,12 +57,8 @@ export class VideoComponent implements OnInit, AfterViewInit {
     this.localStream = stream;
     this.localVideo.src = window.URL.createObjectURL(stream);
     if (stream.getAudioTracks().length > 0) {
-      console.log("in")
+      console.log('in');
     }
-  }
-
-  getUserMediaError = (error) => {
-    console.log('--- error', error);
   }
 
   ngAfterViewInit() {
@@ -80,10 +71,14 @@ export class VideoComponent implements OnInit, AfterViewInit {
         this.start(false);
       }
       this.rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(data.sdp));
-      this.rtcPeerConnection.createAnswer()
-        .then(desc => this.setLocalAndAnswer(desc))
-        .catch(e => console.log(e));
-
+      if (confirm(this.selectedUser.username + 'is calling')) {
+        this.rtcPeerConnection.createAnswer()
+          .then(desc => this.setLocalAndAnswer(desc))
+          .catch(e => console.log(e));
+      } else {
+        this.isHangUp = true;
+        this.closeVideoCall();
+      }
     });
 
     this.socketService.receiveAnswerResponse().subscribe((data: any) => {
@@ -91,8 +86,7 @@ export class VideoComponent implements OnInit, AfterViewInit {
     });
 
     this.socketService.receiveHangupResponse().subscribe((data: any) => {
-      document.getElementById('startButton').setAttribute('value', 'Start Call');
-      this.isCallStarted = true;
+      this.isHangUp = true;
       this.closeVideoCall();
 
     });
@@ -107,19 +101,20 @@ export class VideoComponent implements OnInit, AfterViewInit {
   }
 
   start = (isCaller) => {
-    document.getElementById('startButton').setAttribute('value', 'Hang Up');
-    this.isCallStarted = false;
+
+    this.isHangUp = false;
     this.createPeerConnection();
     const offerOptions = {
       offerToReceiveAudio: 1,
       offerToReceiveVideo: 1,
-    }
+    };
     if (isCaller) {
       this.rtcPeerConnection.createOffer(offerOptions)
         .then(desc => this.setLocalAndOffer(desc))
         .catch(e => console.log(e));
     }
   }
+
 
   createPeerConnection = () => {
     this.rtcPeerConnection = new RTCPeerConnection(this.iceServers);
@@ -172,7 +167,6 @@ export class VideoComponent implements OnInit, AfterViewInit {
         candidate: event.candidate.candidate,
         toUserId: this.selectedUser.id,
         fromUserId: this.user.id,
-
       };
       this.socketService.startCandidate(data);
     }
@@ -183,16 +177,15 @@ export class VideoComponent implements OnInit, AfterViewInit {
   }
 
   hangUpCall = () => {
-  this.closeVideoCall();
+    this.closeVideoCall();
     const data = {
       type: 'hang-up',
       toUserId: this.selectedUser.id,
       fromUserId: this.user.id,
     };
-    this.isCallStarted = true;
-    document.getElementById('startButton').setAttribute('value', 'Start Call');
+    this.isHangUp = true;
     this.socketService.hangUp(data);
-}
+  }
 
 
   closeVideoCall = () => {
@@ -201,11 +194,6 @@ export class VideoComponent implements OnInit, AfterViewInit {
       if (this.remoteVideo.src) {
         this.remoteVideo.src = null;
       }
-
-      if (this.localVideo.src) {
-        this.localVideo.src = null;
-      }
-
 
       this.rtcPeerConnection.close();
       this.rtcPeerConnection = null;
