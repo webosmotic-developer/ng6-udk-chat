@@ -44,6 +44,9 @@ class Server {
     const port = process.env.PORT || 4000;
     const host = process.env.HOST || `localhost`;
 
+    console.log('------------------------*************  port', port);
+    console.log('-------------------------***********host', host);
+
     this.http.listen(port, host, () => {
       console.log(`Listening on http://${host}:${port}`);
     });
