@@ -15,8 +15,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "now-build": "ng run ng-universal:udk:production",
-    "now-start": "node $npm_package_main",
-    "postinstall": "npm run build:prod"
+    "now-start": "node $npm_package_main"
   },
   "private": true,
   "dependencies": {
