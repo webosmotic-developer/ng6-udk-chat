@@ -42,13 +42,10 @@ class Server {
     this.includeRoutes();
 
     const port = process.env.PORT || 4000;
-    const host = process.env.HOST || '0.0.0.0';
 
     console.log('------------------------*************  port', port);
-    console.log('-------------------------***********host', host);
-
-    this.http.listen(port, host, () => {
-      console.log(`Listening on http://${host}:${port}`);
+    this.http.listen(port, '0.0.0.0', () => {
+      console.log(`Listening on ${port}`);
     });
   }
 
