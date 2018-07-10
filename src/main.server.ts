@@ -47,8 +47,8 @@ class Server {
     console.log('------------------------*************  port', port);
     console.log('-------------------------***********host', host);
 
-    this.http.listen(port, host, () => {
-      console.log(`Listening on http://${host}:${port}`);
+    this.http.listen(port, () => {
+      console.log(`Listening on http://localhost:${port}`);
     });
   }
 
