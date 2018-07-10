@@ -4,10 +4,7 @@
   "license": "MIT",
   "main": "dist/app/server/main.js",
   "scripts": {
-    "ng": "ng",
-    "prestart": "npm run build:prod",
-    "start": "node $npm_package_main",
-    "build:prod": "ng run ng-universal:udk:production"
+    "start": "node $npm_package_main"
   },
   "private": true,
   "dependencies": {
