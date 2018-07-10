@@ -7463,8 +7463,8 @@ var Constant = /** @class */ (function () {
     function Constant() {
     }
     Constant.TOKEN_NAME = 'AUTH_TOKEN';
-    Constant.API_URL = 'http://192.168.0.218:4000/';
-    Constant.SOCKET_URL = 'http://192.168.0.218:4000/';
+    Constant.API_URL = 'http://192.168.0.203:4000/';
+    Constant.SOCKET_URL = 'http://192.168.0.203:4000/';
     Constant.EMAIL_REG_EX = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$');
     Constant.PASSWORD_REG_EX = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z!@#$%^&*?.+-\\d]{8,}$');
     return Constant;

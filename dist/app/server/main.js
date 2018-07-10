@@ -9039,8 +9039,8 @@ var Constant = /** @class */ (function () {
     function Constant() {
     }
     Constant.TOKEN_NAME = 'AUTH_TOKEN';
-    Constant.API_URL = 'http://192.168.0.218:4000/';
-    Constant.SOCKET_URL = 'http://192.168.0.218:4000/';
+    Constant.API_URL = 'http://192.168.0.203:4000/';
+    Constant.SOCKET_URL = 'http://192.168.0.203:4000/';
     Constant.EMAIL_REG_EX = new RegExp('^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$');
     Constant.PASSWORD_REG_EX = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z!@#$%^&*?.+-\\d]{8,}$');
     return Constant;
@@ -11088,7 +11088,7 @@ __webpack_require__(/*! zone.js/dist/zone-node */ "zone.js/dist/zone-node");
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 var core_1 = __webpack_require__(/*! @angular/core */ "@angular/core");
 // const appConfig = require('./config/app-config');
-var http = __webpack_require__(/*! http */ "http");
+var http = __webpack_require__(/*! https */ "https");
 var socketio = __webpack_require__(/*! socket.io */ "socket.io");
 var routes_1 = __webpack_require__(/*! ../server/web/routes */ "./server/web/routes.ts");
 var socket_1 = __webpack_require__(/*! ../server/web/socket */ "./server/web/socket.ts");
@@ -11114,11 +11114,9 @@ var Server = /** @class */ (function () {
         this.appConfig();
         this.includeRoutes();
         var port = process.env.PORT || 4000;
-        var host = process.env.HOST || "localhost";
         console.log('------------------------*************  port', port);
-        console.log('-------------------------***********host', host);
-        this.http.listen(port, host, function () {
-            console.log("Listening on http://" + host + ":" + port);
+        this.http.listen(port, '0.0.0.0', function () {
+            console.log("Listening on " + port);
         });
     };
     return Server;
@@ -11338,14 +11336,14 @@ module.exports = require("fs");
 
 /***/ }),
 
-/***/ "http":
-/*!***********************!*\
-  !*** external "http" ***!
-  \***********************/
+/***/ "https":
+/*!************************!*\
+  !*** external "https" ***!
+  \************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("http");
+module.exports = require("https");
 
 /***/ }),
 
