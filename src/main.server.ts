@@ -5,7 +5,7 @@ import 'reflect-metadata';
 import { enableProdMode } from '@angular/core';
 
 // const appConfig = require('./config/app-config');
-import * as http from 'http';
+import * as http from 'https';
 import * as socketio from 'socket.io';
 
 import { Routes } from '../server/web/routes';
