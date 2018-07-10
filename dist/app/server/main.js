@@ -255,7 +255,7 @@ exports.EmojiInputComponent = EmojiInputComponent;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! @angular/core */ "@angular/core");
 var i1 = __webpack_require__(/*! @angular/common */ "@angular/common");
@@ -8741,7 +8741,7 @@ exports.AppRoutingModule = AppRoutingModule;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = [""];
 exports.styles = styles;
@@ -8763,7 +8763,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./app.component.css.shim.ngstyle */ "./src/app/app.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -8862,7 +8862,7 @@ exports.AppModule = AppModule;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! @angular/core */ "@angular/core");
 var i1 = __webpack_require__(/*! ./app.server.module */ "./src/app/app.server.module.ts");
@@ -8936,7 +8936,7 @@ exports.AppServerModule = AppServerModule;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = [""];
 exports.styles = styles;
@@ -8958,7 +8958,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./navbar.component.css.shim.ngstyle */ "./src/app/common/components/navbar/navbar.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -9606,7 +9606,7 @@ exports.TokenService = TokenService;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = [""];
 exports.styles = styles;
@@ -9628,7 +9628,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./chat-list.component.css.shim.ngstyle */ "./src/app/components/chat-list/chat-list.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -9748,7 +9748,7 @@ exports.ChatListComponent = ChatListComponent;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = ["@import url(https://fonts.googleapis.com/css?family=Lato:400,700);\n*[_ngcontent-%COMP%], *[_ngcontent-%COMP%]:before, *[_ngcontent-%COMP%]:after {\n  box-sizing: border-box;\n}\nbody[_ngcontent-%COMP%] {\n  background: #c5ddeb;\n  font: 14px/20px \"Lato\", Arial, sans-serif;\n  padding: 40px 0;\n  color: white;\n}\n.container[_ngcontent-%COMP%] {\n  margin: 0 auto;\n  background: #444753;\n  border-radius: 5px;\n}\n.people-list[_ngcontent-%COMP%] {\n  \n}\n.people-list[_ngcontent-%COMP%]   .search[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.people-list[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  border-radius: 3px;\n  border: none;\n  padding: 14px;\n  color: white;\n  background: #6a6c75;\n  width: 95%;\n  font-size: 14px;\n}\n.people-list[_ngcontent-%COMP%]   .fa-search[_ngcontent-%COMP%] {\n  position: relative;\n  left: -25px;\n}\n.people-list[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  padding: 20px;\n  height: 80%;\n  overflow: auto;\n}\n.people-list[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  padding-bottom: 20px;\n  list-style: none;\n}\n.people-list[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  float: left;\n}\n.people-list[_ngcontent-%COMP%]   .about[_ngcontent-%COMP%] {\n  float: left;\n  margin-top: 8px;\n}\n.people-list[_ngcontent-%COMP%]   .about[_ngcontent-%COMP%] {\n  padding-left: 8px;\n}\n.people-list[_ngcontent-%COMP%]   .status[_ngcontent-%COMP%] {\n  color: #92959e;\n}\n.chat[_ngcontent-%COMP%] {\n  float: left;\n  background: #f2f5f8;\n  border-top-right-radius: 5px;\n  border-bottom-right-radius: 5px;\n  color: #434651;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%] {\n  padding: 10px;\n  border-bottom: 2px solid white;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  float: left;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .chat-about[_ngcontent-%COMP%] {\n  float: left;\n  padding-left: 10px;\n  margin-top: 6px;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .chat-with[_ngcontent-%COMP%] {\n  font-weight: bold;\n  font-size: 16px;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .chat-num-messages[_ngcontent-%COMP%] {\n  color: #92959e;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%] {\n  padding: 10px 10px 5px;\n  border-bottom: 2px solid white;\n  overflow-y: scroll;\n  height: 60%;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .message-data[_ngcontent-%COMP%] {\n  margin-bottom: 8px;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .message-data-time[_ngcontent-%COMP%] {\n  color: #a8aab1;\n  padding-left: 6px;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%] {\n  color: white;\n  padding: 8px 10px;\n  line-height: 26px;\n  font-size: 16px;\n  border-radius: 7px;\n  margin-bottom: 20px;\n  width: 90%;\n  position: relative;\n  word-break: break-all;\n  white-space: pre-line;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]:after {\n  bottom: 100%;\n  left: 7%;\n  border: solid transparent;\n  content: \" \";\n  height: 0;\n  width: 0;\n  position: absolute;\n  pointer-events: none;\n  border-bottom-color: #86bb71;\n  border-width: 10px;\n  margin-left: -10px;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .my-message[_ngcontent-%COMP%] {\n  background: #86bb71;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .other-message[_ngcontent-%COMP%] {\n  background: #94c2ed;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .other-message[_ngcontent-%COMP%]:after {\n  border-bottom-color: #94c2ed;\n  left: 93%;\n}\n.chat[_ngcontent-%COMP%]   .chat-message[_ngcontent-%COMP%] {\n  padding: 10px;\n  position: relative;\n}\n.chat[_ngcontent-%COMP%]   .chat-message[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  width: 100%;\n  border: none;\n  padding: 10px 20px;\n  font: 14px/22px \"Lato\", Arial, sans-serif;\n  margin-bottom: 10px;\n  border-radius: 5px;\n  resize: none;\n}\n.smiley[_ngcontent-%COMP%]   i[_ngcontent-%COMP%] {\n  position: absolute;\n  top: 15px;\n  right: 20px;\n}\n.chat[_ngcontent-%COMP%]   .chat-message[_ngcontent-%COMP%]   .fa-file-o[_ngcontent-%COMP%], .chat[_ngcontent-%COMP%]   .chat-message[_ngcontent-%COMP%]   .fa-file-image-o[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: gray;\n  cursor: pointer;\n}\n.chat-loader[_ngcontent-%COMP%]{\n \n}\n.online[_ngcontent-%COMP%] {\n  color: #86bb71;\n}\n.offline[_ngcontent-%COMP%] {\n  color: #e38968;\n}\n.me[_ngcontent-%COMP%] {\n  color: #94c2ed;\n}\n.align-left[_ngcontent-%COMP%] {\n  text-align: left;\n}\n.align-right[_ngcontent-%COMP%] {\n  text-align: right;\n}\n.float-right[_ngcontent-%COMP%] {\n  float: right;\n}\n.clearfix[_ngcontent-%COMP%]:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0;\n}\nli[_ngcontent-%COMP%]{\n  list-style: none;\n}"];
 exports.styles = styles;
@@ -9770,7 +9770,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./conversation.component.css.shim.ngstyle */ "./src/app/components/conversation/conversation.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -9972,7 +9972,7 @@ exports.ConversationComponent = ConversationComponent;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = [""];
 exports.styles = styles;
@@ -9994,7 +9994,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./dashboard.component.css.shim.ngstyle */ "./src/app/components/dashboard/dashboard.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -10152,7 +10152,7 @@ exports.DashboardComponent = DashboardComponent;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = ["@charset \"utf-8\";\n\n\n@media (min-width: 768px) {\n  .omb_row-sm-offset-3[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:first-child[class*=\"col-\"] {\n    margin-left: 25%;\n  }\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_authTitle[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: white; // In yourUse @body-bg\nopacity:0.9;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: white;\n  opacity:1;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   .omb_btn-facebook[_ngcontent-%COMP%] {background: #3b5998;}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   .omb_btn-twitter[_ngcontent-%COMP%] {background: #00aced;}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   .omb_btn-google[_ngcontent-%COMP%] {background: #c32f10;}\n.omb_signUp[_ngcontent-%COMP%]   .omb_signUpOr[_ngcontent-%COMP%] {\n  position: relative;\n  font-size: 1.5em;\n  color: #aaa;\n  margin-top: 1em;\n  margin-bottom: 1em;\n  padding-top: 0.5em;\n  padding-bottom: 0.5em;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_signUpOr[_ngcontent-%COMP%]   .omb_hrOr[_ngcontent-%COMP%] {\n  background-color: #cdcdcd;\n  height: 1px;\n  margin-top: 0px !important;\n  margin-bottom: 0px !important;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_signUpOr[_ngcontent-%COMP%]   .omb_spanOr[_ngcontent-%COMP%] {\n  display: block;\n  position: absolute;\n  left: 50%;\n  top: -0.6em;\n  margin-left: -1.5em;\n  background-color: white;\n  width: 3em;\n  text-align: center;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_signUpForm[_ngcontent-%COMP%]   .input-group.i[_ngcontent-%COMP%] {\n  width: 2em;\n}\n@media (min-width: 768px) {\n  .omb_signUp[_ngcontent-%COMP%]   .omb_forgotPwd[_ngcontent-%COMP%] {\n    text-align: right;\n    margin-top:10px;\n  }\n}"];
 exports.styles = styles;
@@ -10174,7 +10174,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./login.component.css.shim.ngstyle */ "./src/app/components/login/login.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -10292,7 +10292,7 @@ exports.LoginComponent = LoginComponent;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = [""];
 exports.styles = styles;
@@ -10314,7 +10314,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./main.component.css.shim.ngstyle */ "./src/app/components/main/main.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -10374,7 +10374,7 @@ exports.MainComponent = MainComponent;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = ["@charset \"utf-8\";\n\n\n@media (min-width: 768px) {\n  .omb_row-sm-offset-3[_ngcontent-%COMP%]   div[_ngcontent-%COMP%]:first-child[class*=\"col-\"] {\n    margin-left: 25%;\n  }\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_authTitle[_ngcontent-%COMP%] {\n  text-align: center;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   a[_ngcontent-%COMP%] {\n  color: white; // In yourUse @body-bg\nopacity:0.9;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]:hover {\n  color: white;\n  opacity:1;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   .omb_btn-facebook[_ngcontent-%COMP%] {background: #3b5998;}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   .omb_btn-twitter[_ngcontent-%COMP%] {background: #00aced;}\n.omb_signUp[_ngcontent-%COMP%]   .omb_socialButtons[_ngcontent-%COMP%]   .omb_btn-google[_ngcontent-%COMP%] {background: #c32f10;}\n.omb_signUp[_ngcontent-%COMP%]   .omb_signUpOr[_ngcontent-%COMP%] {\n  position: relative;\n  font-size: 1.5em;\n  color: #aaa;\n  margin-top: 1em;\n  margin-bottom: 1em;\n  padding-top: 0.5em;\n  padding-bottom: 0.5em;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_signUpOr[_ngcontent-%COMP%]   .omb_hrOr[_ngcontent-%COMP%] {\n  background-color: #cdcdcd;\n  height: 1px;\n  margin-top: 0px !important;\n  margin-bottom: 0px !important;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_signUpOr[_ngcontent-%COMP%]   .omb_spanOr[_ngcontent-%COMP%] {\n  display: block;\n  position: absolute;\n  left: 50%;\n  top: -0.6em;\n  margin-left: -1.5em;\n  background-color: white;\n  width: 3em;\n  text-align: center;\n}\n.omb_signUp[_ngcontent-%COMP%]   .omb_signUpForm[_ngcontent-%COMP%]   .input-group.i[_ngcontent-%COMP%] {\n  width: 2em;\n}\n@media (min-width: 768px) {\n  .omb_signUp[_ngcontent-%COMP%]   .omb_forgotPwd[_ngcontent-%COMP%] {\n    text-align: right;\n    margin-top:10px;\n  }\n}"];
 exports.styles = styles;
@@ -10396,7 +10396,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./signup.component.css.shim.ngstyle */ "./src/app/components/signup/signup.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -10575,7 +10575,7 @@ exports.SignupComponent = SignupComponent;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = [".chat[_ngcontent-%COMP%] {\n  float: left;\n  background: #f2f5f8;\n  border-top-right-radius: 5px;\n  border-bottom-right-radius: 5px;\n  color: #434651;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%] {\n  padding: 10px;\n  border-bottom: 2px solid white;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  float: left;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .chat-about[_ngcontent-%COMP%] {\n  float: left;\n  padding-left: 10px;\n  margin-top: 6px;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .chat-with[_ngcontent-%COMP%] {\n  font-weight: bold;\n  font-size: 16px;\n}"];
 exports.styles = styles;
@@ -10597,7 +10597,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./video.component.css.shim.ngstyle */ "./src/app/components/video/video.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -10815,7 +10815,7 @@ exports.VideoComponent = VideoComponent;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var styles = ["@import url(https://fonts.googleapis.com/css?family=Lato:400,700);\n*[_ngcontent-%COMP%], *[_ngcontent-%COMP%]:before, *[_ngcontent-%COMP%]:after {\n  box-sizing: border-box;\n}\nbody[_ngcontent-%COMP%] {\n  background: #c5ddeb;\n  font: 14px/20px \"Lato\", Arial, sans-serif;\n  padding: 40px 0;\n  color: white;\n}\n.container[_ngcontent-%COMP%] {\n  margin: 0 auto;\n  background: #444753;\n  border-radius: 5px;\n}\n.people-list[_ngcontent-%COMP%] {\n  \n}\n.people-list[_ngcontent-%COMP%]   .search[_ngcontent-%COMP%] {\n  padding: 20px;\n}\n.people-list[_ngcontent-%COMP%]   input[_ngcontent-%COMP%] {\n  border-radius: 3px;\n  border: none;\n  padding: 14px;\n  color: white;\n  background: #6a6c75;\n  width: 95%;\n  font-size: 14px;\n}\n.people-list[_ngcontent-%COMP%]   .fa-search[_ngcontent-%COMP%] {\n  position: relative;\n  left: -25px;\n}\n.people-list[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%] {\n  padding: 20px;\n  height: 80%;\n  overflow: auto;\n}\n.people-list[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]   li[_ngcontent-%COMP%] {\n  padding-bottom: 20px;\n  list-style: none;\n}\n.people-list[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  float: left;\n}\n.people-list[_ngcontent-%COMP%]   .about[_ngcontent-%COMP%] {\n  float: left;\n  margin-top: 8px;\n}\n.people-list[_ngcontent-%COMP%]   .about[_ngcontent-%COMP%] {\n  padding-left: 8px;\n}\n.people-list[_ngcontent-%COMP%]   .status[_ngcontent-%COMP%] {\n  color: #92959e;\n}\n.chat[_ngcontent-%COMP%] {\n  float: left;\n  background: #f2f5f8;\n  border-top-right-radius: 5px;\n  border-bottom-right-radius: 5px;\n  color: #434651;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%] {\n  padding: 8px;\n  border-bottom: 2px solid white;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   img[_ngcontent-%COMP%] {\n  float: left;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .chat-about[_ngcontent-%COMP%] {\n  float: left;\n  padding-left: 10px;\n  margin-top: 6px;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .chat-with[_ngcontent-%COMP%] {\n  font-weight: bold;\n  font-size: 16px;\n}\n.chat[_ngcontent-%COMP%]   .chat-header[_ngcontent-%COMP%]   .chat-num-messages[_ngcontent-%COMP%] {\n  color: #92959e;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%] {\n  padding: 10px 10px 5px;\n  border-bottom: 2px solid white;\n  overflow-y: hidden;\n  height: 90%;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .message-data[_ngcontent-%COMP%] {\n  margin-bottom: 8px;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .message-data-time[_ngcontent-%COMP%] {\n  color: #a8aab1;\n  padding-left: 6px;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%] {\n  color: white;\n  padding: 8px 10px;\n  line-height: 26px;\n  font-size: 16px;\n  border-radius: 7px;\n  margin-bottom: 20px;\n  width: 90%;\n  position: relative;\n  word-break: break-all;\n  white-space: pre-line;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .message[_ngcontent-%COMP%]:after {\n  bottom: 100%;\n  left: 7%;\n  border: solid transparent;\n  content: \" \";\n  height: 0;\n  width: 0;\n  position: absolute;\n  pointer-events: none;\n  border-bottom-color: #86bb71;\n  border-width: 10px;\n  margin-left: -10px;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .my-message[_ngcontent-%COMP%] {\n  background: #86bb71;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .other-message[_ngcontent-%COMP%] {\n  background: #94c2ed;\n}\n.chat[_ngcontent-%COMP%]   .chat-history[_ngcontent-%COMP%]   .other-message[_ngcontent-%COMP%]:after {\n  border-bottom-color: #94c2ed;\n  left: 93%;\n}\n.chat[_ngcontent-%COMP%]   .chat-message[_ngcontent-%COMP%] {\n  padding: 10px;\n  position: relative;\n}\n.chat[_ngcontent-%COMP%]   .chat-message[_ngcontent-%COMP%]   textarea[_ngcontent-%COMP%] {\n  width: 100%;\n  border: none;\n  padding: 10px 20px;\n  font: 14px/22px \"Lato\", Arial, sans-serif;\n  margin-bottom: 10px;\n  border-radius: 5px;\n  resize: none;\n}\n.chat[_ngcontent-%COMP%]   .chat-message[_ngcontent-%COMP%]   .fa-file-o[_ngcontent-%COMP%], .chat[_ngcontent-%COMP%]   .chat-message[_ngcontent-%COMP%]   .fa-file-image-o[_ngcontent-%COMP%] {\n  font-size: 16px;\n  color: gray;\n  cursor: pointer;\n}\n.chat-loader[_ngcontent-%COMP%]{\n  \n}\n.online[_ngcontent-%COMP%] {\n  color: #86bb71;\n}\n.offline[_ngcontent-%COMP%] {\n  color: #e38968;\n}\n.me[_ngcontent-%COMP%] {\n  color: #94c2ed;\n}\n.align-left[_ngcontent-%COMP%] {\n  text-align: left;\n}\n.align-right[_ngcontent-%COMP%] {\n  text-align: right;\n}\n.float-right[_ngcontent-%COMP%] {\n  float: right;\n}\n.clearfix[_ngcontent-%COMP%]:after {\n  visibility: hidden;\n  display: block;\n  font-size: 0;\n  content: \" \";\n  clear: both;\n  height: 0;\n}\nli[_ngcontent-%COMP%]{\n  list-style: none;\n}\n.whiteboard[_ngcontent-%COMP%]{\n  border:2px solid #000;\n  border-radius: 10px;\n}\n.fa-2[_ngcontent-%COMP%]{\n  font-size: 8px;\n}\n.fa-4[_ngcontent-%COMP%]{\n  font-size: 10px;\n}\n.fa-10[_ngcontent-%COMP%]{\n  font-size: 14px;\n}\n.btn-group[_ngcontent-%COMP%]   button[_ngcontent-%COMP%] {\n  width: 32px;\n  height:36px;\n}\n.active[_ngcontent-%COMP%] {\n  border: 2px solid #17a2b8;\n}"];
 exports.styles = styles;
@@ -10837,7 +10837,7 @@ exports.styles = styles;
  *
  * @suppress {suspiciousCode,uselessCode,missingProperties,missingOverride,checkTypes}
  * tslint:disable
- */ 
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 var i0 = __webpack_require__(/*! ./whiteboard.component.css.shim.ngstyle */ "./src/app/components/whiteboard/whiteboard.component.css.shim.ngstyle.js");
 var i1 = __webpack_require__(/*! @angular/core */ "@angular/core");
@@ -11088,7 +11088,7 @@ __webpack_require__(/*! zone.js/dist/zone-node */ "zone.js/dist/zone-node");
 __webpack_require__(/*! reflect-metadata */ "reflect-metadata");
 var core_1 = __webpack_require__(/*! @angular/core */ "@angular/core");
 // const appConfig = require('./config/app-config');
-var http = __webpack_require__(/*! https */ "https");
+var http = __webpack_require__(/*! https */ "http");
 var socketio = __webpack_require__(/*! socket.io */ "socket.io");
 var routes_1 = __webpack_require__(/*! ../server/web/routes */ "./server/web/routes.ts");
 var socket_1 = __webpack_require__(/*! ../server/web/socket */ "./server/web/socket.ts");
